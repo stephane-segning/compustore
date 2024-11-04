@@ -76,11 +76,17 @@ To aid in understanding and clarity, we will be creating and reviewing the follo
 
 Project Overview Diagram: Visual representation of the overall project structure and workflows.
 
-	![alt text](/home/boris/Pictures/Screenshots/Screenshot from 2024-10-28 09-00-32.png)
-    
 UML Sequence Diagrams: Detailed sequence diagrams for critical components, such as "Subscribe to Product License" and "Manage Subscriptions."
-Component Sequence Diagrams: For internal processes within the application.
-
+```mermaid
+sequenceDiagram
+    actor User
+    User->>Frontend: SearchProduct(text)
+    Frontend->>Backend: searchProduct(text)
+    Backend->>DB: Search full text
+    DB-->>Backend: hits
+    Backend-->>Frontend: Hits
+```
+ 
 ### Research & Additional Tools
 React Admin (RA):
 
