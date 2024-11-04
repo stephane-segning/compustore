@@ -75,12 +75,12 @@ Kanban Board: To track tasks and maintain progress transparency. Managed by @Ste
 To aid in understanding and clarity, we will be creating and reviewing the following diagrams:
 
 Project Overview Diagram: Visual representation of the overall project structure and workflows.
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
+![alt text](Images/image.png)
+![alt text](Images/image-1.png)
+![alt text](Images/image-2.png)
+![alt text](Images/image-3.png)
+![alt text](Images/image-4.png)
+![alt text](Images/image-5.png)
 
 UML Sequence Diagrams: Detailed sequence diagrams for critical components, such as "Subscribe to Product License" and "Manage Subscriptions."
 ```mermaid
