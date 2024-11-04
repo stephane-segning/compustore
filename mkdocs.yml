@@ -13,8 +13,10 @@ theme:
 # Navbar settings (site structure)
 nav:
   - Home: README.md
-  - SSDLC: SSDLC.md
-  - Architecture: architecture.md
+  - Development:
+    - Branching Concept: branching-strategy.md
+    - SSDLC: SSDLC.md 
+    - Architecture: architecture.md
 
 # Extra settings
 markdown_extensions:
