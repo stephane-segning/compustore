@@ -14,7 +14,7 @@ To ensure high-quality development, Compustore will follow a secure software dev
 
 ---
 
-## Requirements
+## A. Requirements
 
 ### Functional Requirements
 
@@ -41,7 +41,7 @@ To ensure high-quality development, Compustore will follow a secure software dev
 
 ---
 
-## Threat Modeling
+## B. Threat Modeling
 
 **Overview**  
 Threat modeling for Compustore will identify potential security risks across three user roles (anonymous, user, admin) and within key functionalities such as product management, order processing, and payment handling. The model will use the STRIDE framework to classify threats and evaluate them from both the frontend and backend perspectives. Given that the application will deploy on Vercel and use Neon.tech for production databases, considerations around cloud security, API access, and data protection are essential.
@@ -123,7 +123,7 @@ Threat modeling for Compustore will identify potential security risks across thr
 
 ---
 
-## Architecture & Tech Stack
+## C. Architecture & Tech Stack
 
 ### Application Architecture
 
