@@ -1,0 +1,44 @@
+# Project information
+site_name: Compustore
+site_description: 'A GIS Stripe Project to demonstrate Payments and payment processor using good practices'
+site_url: 'https://adorsys-gis.github.io/compustore'
+
+# Theme settings
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: purple
+
+# Navbar settings (site structure)
+nav:
+  - Home: README.md
+  - SSDLC: SSDLC.md
+  - Architecture: architecture.md
+
+# Extra settings
+markdown_extensions:
+  - admonition
+  - codehilite
+  - attr_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+# Repository configuration (for the edit link on pages)
+repo_name: Compustore
+repo_url: https://github.com/ADORSYS-GIS/compustore
+edit_uri: edit/main/docs/
