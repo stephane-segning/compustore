@@ -1,0 +1,11 @@
+.github
+.idea
+.next
+docs
+node_modules
+public
+src
+.env.example
+.prettierignore
+.eslintignore
+.gitignore

@@ -11,6 +11,7 @@ const config = {
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:sonarjs/recommended-legacy",
     "plugin:prettier/recommended",
+    "plugin:storybook/recommended"
   ],
   rules: {
     "@typescript-eslint/array-type": "off",

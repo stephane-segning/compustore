@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "dsznajder.es7-react-js-snippets",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "ms-azuretools.vscode-docker",
+    "gamunu.vscode-yarn",
+    "Orta.vscode-jest",
+    "firsttris.vscode-jest-runner",
+    "ms-playwright.playwright",
+    "donjayamanne.githistory",
+    "prisma.prisma"
+  ]
+}

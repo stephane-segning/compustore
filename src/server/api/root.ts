@@ -1,5 +1,5 @@
-import { postRouter } from "@cps/server/api/routers/post";
-import { createCallerFactory, createTRPCRouter } from "@cps/server/api/trpc";
+import { postRouter } from '@cps/server/api/routers/post';
+import { createCallerFactory, createTRPCRouter } from '@cps/server/api/trpc';
 
 /**
  * This is the primary router for your server.

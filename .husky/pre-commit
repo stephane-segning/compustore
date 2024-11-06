@@ -1,0 +1,4 @@
+set -e
+
+yarn lint:fix
+yarn test

@@ -3,7 +3,7 @@ name: Publish docs
 on:
   push:
     branches:
-      - main   # Trigger workflow only on pushes to the main branch
+      - main
 
 permissions:
   contents: write
@@ -28,9 +28,31 @@ jobs:
         run: |
           pip install mkdocs-material
 
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'  # Specify the Node.js version you need
+
+      - name: Install dependencies
+        run: |
+          yarn
+
+      - name: Build Storybook
+        run: |
+          cp .env.example .env
+          yarn storybook:build
+
+      # Move Storybook to MkDocs site directory
+      - name: Move Storybook to MkDocs site
+        run: |
+          mkdir -p site/
+
+          mv storybook-static site/storybook
+
       # Build and deploy the site to GitHub Pages
       - name: Deploy to GitHub Pages
         run: |
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/ADORSYS-GIS/compustore.git
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/stephane-segning/compustore.git
           
-          mkdocs gh-deploy --force
+          mkdocs gh-deploy --force -m "chore: deploy documentation #{sha}" --dirty

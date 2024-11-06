@@ -1,0 +1,30 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "git.enableSmartCommit": true,
+  "git.postCommitCommand": "none",
+  "git.autofetch": true,
+  "git.branchProtection": ["main", "develop"],
+  "git.confirmSync": true,
+  "git.detectSubmodules": true,
+  "github.gitAuthentication": true,
+  "git.verboseCommit": true,
+  "git.useForcePushIfIncludes": false,
+  "eslint.debug": false,
+  "eslint.enable": true,
+  "prettier.enable": true,
+  "prettier.endOfLine": "auto",
+  "prettier.htmlWhitespaceSensitivity": "strict",
+  "prettier.requireConfig": false,
+  "prettier.requirePragma": false,
+  "tailwindCSS.colorDecorators": true,
+  "tailwindCSS.lint.cssConflict": "error",
+  "files.autoSave": "onFocusChange"
+}

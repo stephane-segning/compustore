@@ -1,11 +1,13 @@
 # Project information
 site_name: Compustore
 site_description: 'A GIS Stripe Project to demonstrate Payments and payment processor using good practices'
-site_url: 'https://adorsys-gis.github.io/compustore'
+site_url: 'https://stephane-segning.github.io/compustore'
 
 # Theme settings
 theme:
   name: material
+  locale: en
+  highlightjs: true
   palette:
     scheme: slate
     primary: purple
@@ -14,9 +16,10 @@ theme:
 nav:
   - Home: README.md
   - Development:
-    - Branching Concept: branching-strategy.md
-    - SSDLC: SSDLC.md 
-    - Architecture: architecture.md
+      - Branching Concept: branching-strategy.md
+      - SSDLC: SSDLC.md
+      - Architecture: architecture.md
+  - Storybook: storybook
 
 # Extra settings
 markdown_extensions:
@@ -38,9 +41,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
 
-# Repository configuration (for the edit link on pages)
 repo_name: Compustore
-repo_url: https://github.com/ADORSYS-GIS/compustore
+repo_url: https://github.com/stephane-segning/compustore
 edit_uri: edit/main/docs/

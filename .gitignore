@@ -43,4 +43,9 @@ yarn-error.log*
 *.tsbuildinfo
 
 # idea files
-.idea
+#.idea
+*storybook.log
+storybook-static/
+site
+
+.swc
