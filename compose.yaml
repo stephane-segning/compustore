@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-compustore}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-compustore-password}
+      POSTGRES_DB: ${POSTGRES_DB:-compustore}
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+
+  adminer:
+    image: adminer
+    ports:
+      - ${ADMINER_PORT:-18080}:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DEFAULT_USERNAME: ${POSTGRES_USER:-compustore}
+      ADMINER_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD:-compustore-password}
+      ADMINER_DESIGN: ${ADMINER_DESIGN:-dracula}
+      ADMINER_PLUGINS: ${ADMINER_PLUGINS:-tables-filter tinymce}
+
+  minio:
+    image: bitnami/minio:latest
+    volumes:
+      - minio:/bitnami/minio/data
+    ports:
+      - ${MINIO_PORT:-19000}:9000
+      - ${MINIO_PORT_INTERNAL:-9001}:9001
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio123}
+      MINIO_BROWSER_SESSION_DURATION: ${MINIO_BROWSER_SESSION_DURATION:-7d}
+      MINIO_BROWSER_LOGIN_ANIMATION: ${MINIO_BROWSER_LOGIN_ANIMATION:-off}
+
+volumes:
+  db: { }
+  minio: { }
