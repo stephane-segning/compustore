@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import Button from './button';
  
-describe('Page', () => {
+describe('Button', () => {
     it('renders a rounded button', () => {
         render(<Button color='primary' shape='rounded'>Some text</Button>)
  
@@ -51,7 +51,7 @@ describe('Page', () => {
     });
 
     it('renders a secondary button', () => {
-        render(<Button color="none">Some text</Button>)
+        render(<Button color="neutral">Some text</Button>)
  
         const button = screen.getByText<HTMLButtonElement>('Some text')
  

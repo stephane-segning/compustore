@@ -14,13 +14,13 @@ export default function Logo({
   shape = 'rounded',
   color = 'blue',
   src = logoSvg,
-  alt,
+  alt = 'Logo',
   ...props
 }: LogoProps) {
   return (
     <div
       className={twMerge(
-        'relative h-24 w-24 overflow-clip',
+        `relative h-24 w-24 overflow-clip`,
         shape === 'circle' && 'rounded-full',
         shape === 'rounded' && 'rounded-lg',
         shape === 'square' && 'rounded-[0.1rem]',
@@ -28,7 +28,7 @@ export default function Logo({
         color === 'red' && 'bg-[red]',
         color === 'green' && 'bg-[green]',
       )}>
-      <Image src={src} fill alt={alt ?? 'Logo'} {...props} />
+      <Image src={src} fill alt={alt} {...props} />
     </div>
   );
 }
