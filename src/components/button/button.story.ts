@@ -17,7 +17,7 @@ const meta = {
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: {
     onClick: fn(),
-    children: 'Button',
+    children: 'This is a button',
     size: 'md',
     color: 'primary',
   },
@@ -43,5 +43,11 @@ export const Circle: Story = {
   args: {
     shape: 'circle',
     children: '🚀',
+  },
+};
+
+export const Neutral: Story = {
+  args: {
+    color: 'neutral',
   },
 };

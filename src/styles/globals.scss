@@ -10,6 +10,7 @@
   $primary-color: #ff33cc;
   $secondary-color: #ff9966;
   $grey-color: #999966;
+  $accent-color: #bbff00;
 
   --primary-color: #{$primary-color};
   --primary-light-color: #{color.adjust($primary-color, $lightness: 24%)};
@@ -18,6 +19,10 @@
   --secondary-color: #{$secondary-color};
   --secondary-light-color: #{color.adjust($secondary-color, $lightness: 12%)};
   --secondary-content-color: #{color.adjust($secondary-color, $lightness: -36%)};
+
+  --accent-color: #{$accent-color};
+  --accent-content-color: #{color.adjust($accent-color, $lightness: -36%)};
+  --accent-light-color: #{color.adjust($accent-color, $lightness: 24%)};
 
   --neutral-color: $grey-color;
   --neutral-light-color: #{color.adjust($grey-color, $lightness: 44%)};
