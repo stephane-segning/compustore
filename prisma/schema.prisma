@@ -14,9 +14,14 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
+model Product {
     id        Int      @id @default(autoincrement())
     name      String
+    price     Float
+    stock     Int
+    digital   Boolean
+    image     String
+    images    String[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
@@ -62,7 +67,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    products      Product[]
+    role          Role      @default(USER)
 }
 
 model VerificationToken {
@@ -71,4 +77,9 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+enum Role {
+    USER
+    ADMIN
 }
