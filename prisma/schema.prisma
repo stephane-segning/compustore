@@ -99,8 +99,9 @@ model ProductVariant {
 }
 
 model Image {
-    id  Int    @id @default(autoincrement())
-    url String
+    id    Int     @id @default(autoincrement())
+    url   String
+    title String?
 
     productThumbnail Product?        @relation("thumbnail")
     variantThumbnail ProductVariant? @relation("thumbnail")
