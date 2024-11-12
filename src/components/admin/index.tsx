@@ -9,6 +9,7 @@ const AdminApp = () => (
       name="Product"
       list={ListGuesser}
       edit={EditGuesser}
+      create={EditGuesser}
       recordRepresentation="email"
     />
     <Resource name="Session" list={ListGuesser} edit={EditGuesser} />

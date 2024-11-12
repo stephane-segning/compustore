@@ -26,5 +26,8 @@
   "prettier.requirePragma": false,
   "tailwindCSS.colorDecorators": true,
   "tailwindCSS.lint.cssConflict": "error",
-  "files.autoSave": "onFocusChange"
+  "files.autoSave": "onFocusChange",
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }
