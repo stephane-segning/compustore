@@ -14,16 +14,109 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
+model ProductPrice {
     id        Int      @id @default(autoincrement())
-    name      String
+    price     Float
+    currency  String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
+    product   Product? @relation(fields: [productId], references: [id])
+    productId Int?
+
+    variant   ProductVariant? @relation(fields: [variantId], references: [id])
+    variantId Int?
+
+    @@index([productId])
+    @@index([productId, variantId])
+    @@index([variantId])
+}
+
+model ProductStock {
+    id Int @id @default(autoincrement())
+
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
+
+    variant   ProductVariant? @relation(fields: [variantId], references: [id])
+    variantId Int?
+
+    stock     Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([productId])
+    @@index([productId, variantId])
+    @@index([variantId])
+}
+
+model Product {
+    id          Int            @id @default(autoincrement())
+    name        String
+    description String?
+    stocks      ProductStock[]
+    prices      ProductPrice[]
+    priceId     Int            @unique
+    isDigital   Boolean        @default(false)
+    status      ProductStatus  @default(DRAFT)
+
+    thumbnail   Image? @relation("thumbnail", fields: [thumbnailId], references: [id])
+    thumbnailId Int?   @unique
+
+    images    Image[]          @relation("ProductImages")
+    variants  ProductVariant[]
+    createdAt DateTime         @default(now())
+    updatedAt DateTime         @updatedAt
+
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
+}
 
-    @@index([name])
+enum ProductStatus {
+    DRAFT
+    PUBLISHED
+}
+
+model ProductVariant {
+    id Int @id @default(autoincrement())
+
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
+
+    name        String
+    description String?
+    prices      ProductPrice[]
+    stocks      ProductStock[]
+
+    thumbnail   Image? @relation("thumbnail", fields: [thumbnailId], references: [id])
+    thumbnailId Int?   @unique
+
+    images    Image[]  @relation("VariantImages")
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([productId])
+}
+
+model Image {
+    id    Int     @id @default(autoincrement())
+    url   String
+    title String?
+
+    productThumbnail Product?        @relation("thumbnail")
+    variantThumbnail ProductVariant? @relation("thumbnail")
+
+    product   Product? @relation("ProductImages", fields: [productId], references: [id])
+    productId Int?
+
+    variant   ProductVariant? @relation("VariantImages", fields: [variantId], references: [id])
+    variantId Int?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([productId])
+    @@index([variantId])
 }
 
 // Necessary for Next auth
@@ -62,7 +155,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    products      Product[]
+    role          Role      @default(USER)
 }
 
 model VerificationToken {
@@ -71,4 +165,9 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+enum Role {
+    USER
+    ADMIN
 }
