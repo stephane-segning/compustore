@@ -1,9 +1,7 @@
 import Link from 'next/link';
 
-import { LatestPost } from '@cps/app/_components/post';
 import { auth } from '@cps/server/auth';
-import { api, HydrateClient } from '@cps/trpc/server';
-import Logo from '@cps/components/logo';
+import { HydrateClient } from '@cps/trpc/server';
 
 export default async function Home() {
   const session = await auth();
