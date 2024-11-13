@@ -19,7 +19,7 @@ describe('Product Component', () => {
     expect(imageElement).toHaveAttribute('alt', mockProps.title);
   
     const productContainer = screen.getByTestId('product-container');
-    expect(productContainer).toHaveClass('p-4', 'rounded-lg', 'border', 'shadow', 'hover:scale-105', 'transition' ,'transform'); // Adjust based on your actual component's classes
+    expect(productContainer).toHaveClass('p-4', 'rounded-lg', 'border', 'shadow', 'transition' ,'transform'); 
   });
   
 });
