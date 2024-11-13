@@ -50,6 +50,15 @@ model ProductStock {
     @@index([variantId])
 }
 
+model Category {
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    description String?
+    products    Product[] @relation("ProductCategories")
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+}
+
 model Product {
     id          Int            @id @default(autoincrement())
     name        String
@@ -70,6 +79,9 @@ model Product {
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
+
+    // Add the relationship to categories
+    categories Category[] @relation("ProductCategories")
 }
 
 enum ProductStatus {
