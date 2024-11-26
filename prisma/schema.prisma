@@ -81,13 +81,10 @@ model Product {
     images   Image[]          @relation("ProductImages")
     variants ProductVariant[]
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
     // Add the relationship to categories
     categories Category[] @relation("ProductCategories")
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @default(now()) @updatedAt
 }
 
 enum ProductStatus {
