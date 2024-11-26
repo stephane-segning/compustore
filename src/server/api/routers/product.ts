@@ -4,7 +4,7 @@ import { db } from '../../db';
 
 export const productRouter = createTRPCRouter({
   getProductById: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
       const product = await db.product.findUnique({
         where: { id: input.id },
