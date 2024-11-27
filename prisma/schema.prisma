@@ -57,6 +57,15 @@ model ProductStock {
     @@index([variantId])
 }
 
+model Category {
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    description String?
+    products    Product[] @relation("ProductCategories")
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+}
+
 model Product {
     id          String         @id @default(cuid())
     name        String
@@ -72,8 +81,10 @@ model Product {
     images   Image[]          @relation("ProductImages")
     variants ProductVariant[]
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+    // Add the relationship to categories
+    categories Category[] @relation("ProductCategories")
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @default(now()) @updatedAt
 }
 
 enum ProductStatus {
