@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 import { db } from '../../db';
+import { TRPCError } from '@trpc/server';
 
 export const productRouter = createTRPCRouter({
   getProductById: publicProcedure
@@ -17,9 +18,24 @@ export const productRouter = createTRPCRouter({
       });
 
       if (!product) {
-        throw new Error(`Product with ID ${input.id} not found.`);
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: `Product with ID ${input.id} not found.`,
+        });
       }
 
       return product;
     }),
+  getAllProducts: publicProcedure.query(async () => {
+    const products = await db.product.findMany({
+      include: {
+        stocks: true,
+        prices: true,
+        images: true,
+        variants: true,
+      },
+    });
+
+    return products;
+  }),
 });
