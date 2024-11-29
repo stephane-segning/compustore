@@ -22,4 +22,60 @@ describe('Product Component', () => {
     expect(productContainer).toHaveClass('p-4', 'rounded-lg', 'border', 'shadow', 'transition' ,'transform'); 
   });
   
+  test('sanitizes potentially harmful input in description', () => {
+    const dangerousDescription =
+      '<script>alert("XSS")</script><b>Valid Bold</b>';
+    render(
+      <Product
+        {...mockProps}
+        description={dangerousDescription}
+      />
+    );
+
+    // The bold text should render, but the script tag should not
+    expect(screen.getByText('Valid Bold')).toBeInTheDocument();
+    expect(screen.queryByText('alert("XSS")')).not.toBeInTheDocument();
+  });
+
+  test('handles missing description gracefully', () => {
+    const { container } = render(
+      <Product {...mockProps} description={undefined} />
+    );
+
+    // Ensure no content is rendered for the description
+    const descriptionContainer = container.querySelector(
+      '.text-md'
+    );
+    expect(descriptionContainer).toBeEmptyDOMElement();
+  });
+
+  test('renders sanitized HTML content in description', () => {
+    const htmlDescription =
+      'This is <i>italicized</i> and <b>bold</b>';
+    render(<Product {...mockProps} description={htmlDescription} />);
+
+    // The italicized and bold text should render correctly
+    const italicText = screen.getByText('italicized');
+    const boldText = screen.getByText('bold');
+
+    expect(italicText.tagName).toBe('I');
+    expect(boldText.tagName).toBe('B');
+  });
+
+  test('blocks unauthorized tags and attributes in description', () => {
+    const dangerousDescription = '<script>alert("XSS")</script><span style="color:red;">Valid Text</span>';
+    render(<Product {...mockProps} description={dangerousDescription} />);
+  
+    // Valid tags should render
+    const spanElement = screen.getByText('Valid Text');
+    expect(spanElement).toBeInTheDocument();
+  
+    // The script tag should not render
+    expect(screen.queryByText('alert("XSS")')).not.toBeInTheDocument();
+  
+    // Validate allowed attributes
+    expect(spanElement).toHaveAttribute('style', 'color:red;');
+  });
+  
+  
 });

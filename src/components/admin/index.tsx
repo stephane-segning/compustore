@@ -1,19 +1,20 @@
-"use client";
+'use client'; // Ensure that the code runs in the browser, not on the server
 
-import { Admin, Resource, ListGuesser, EditGuesser, ShowGuesser } from "react-admin";
-import { dataProvider } from "ra-data-simple-prisma";
-import { ProductCreate } from "./products";
+import { Admin, EditGuesser, ListGuesser, Resource } from 'react-admin';
+import { ProductCreate, ProductEdit, ProductList, ProductShow } from './products';
+import { dataProvider } from './provider';
 
 const AdminApp = () => (
-  <Admin dataProvider={dataProvider("/api/admin")}>
+  <Admin dataProvider={dataProvider}>
     <Resource
       name="Product"
-      list={ListGuesser}
-      edit={EditGuesser}
+      list={ProductList}
+      edit={ProductEdit}
       create={ProductCreate}
-      show={ShowGuesser}
+      show={ProductShow}
       recordRepresentation="email"
     />
+    <Resource name="Image" list={ListGuesser} edit={EditGuesser} />
     <Resource name="Session" list={ListGuesser} edit={EditGuesser} />
   </Admin>
 );

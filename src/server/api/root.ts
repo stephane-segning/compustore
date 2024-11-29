@@ -1,6 +1,6 @@
-import { postRouter } from '@cps/server/api/routers/post';
 import { categoryRouter } from '@cps/server/api/routers/category'; //Import the category router
 import { createCallerFactory, createTRPCRouter } from '@cps/server/api/trpc';
+import { uploadRouter } from './routers/upload';
 import { productRouter } from "./routers/product";
 import { cart } from '@cps/server/api/routers/cart';
 /**
@@ -11,6 +11,7 @@ import { cart } from '@cps/server/api/routers/cart';
 export const appRouter = createTRPCRouter({
   post: postRouter,
   cart: cart,
+  upload: uploadRouter,
   category: categoryRouter, // Add the category router
   product: productRouter,
 });
