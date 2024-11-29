@@ -1,10 +1,11 @@
 'use client';
 import React, { useState } from "react";
 import { useCart } from "@cps/trpc/hooks/use-cart";
+import CartRow from "./cart-row";
 import Button from "@cps/components/button";
 
 interface CartDisplayProps {
-  userId: string; 
+  userId: string;
 }
 
 const CartDisplay: React.FC<CartDisplayProps> = ({ userId }) => {
@@ -19,8 +20,11 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ userId }) => {
     return <div className="text-center text-gray-500">Your cart is empty.</div>;
   }
 
-  // Calculate subtotal
-  const subtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cart.items.reduce(
+    (sum: number, item: { price: number; quantity: number }) =>
+      sum + item.price * item.quantity,
+    0
+  );
 
   const handleUpdateQuantity = (itemId: string) => {
     const quantity = newQuantity[itemId];
@@ -58,46 +62,23 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ userId }) => {
           </tr>
         </thead>
         <tbody>
-          {cart.items.map((item) => (
-            <tr key={item.id} className="text-center">
-              <td className="border border-gray-300 p-2">{item.productId}</td>
-              <td className="border border-gray-300 p-2">${item.price.toFixed(2)}</td>
-              <td className="border border-gray-300 p-2">
-                <input
-                  type="number"
-                  min="1"
-                  value={newQuantity[item.id] || item.quantity}
-                  onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                  className="border border-gray-300 p-2 rounded w-20"
-                />
-              </td>
-              <td className="border border-gray-300 p-2">${(item.price * item.quantity).toFixed(2)}</td>
-              <td className="border border-gray-300 p-2">
-                <Button
-                   color="primary"
-                  onClick={() => handleUpdateQuantity(item.id)}
-                >
-                  Update
-                </Button>
-                <Button
-                  color="secondary"
-                  onClick={() => handleRemoveItem(item.id)}
-                >
-                  Remove
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {cart.items.map((item) => (
+    <CartRow
+      key={item.id} // Correct placement of the key prop
+      item={{ ...item, productId: item.id }}
+      newQuantity={newQuantity[item.id] || item.quantity}
+      onQuantityChange={handleQuantityChange}
+      onUpdateQuantity={handleUpdateQuantity}
+      onRemoveItem={handleRemoveItem}
+    />
+  ))}
+</tbody>
       </table>
       <div className="text-right mt-4">
         <h3 className="text-xl font-bold">Subtotal: ${subtotal.toFixed(2)}</h3>
       </div>
       <div className="flex justify-between items-center mt-6">
-        <Button
-          color="accent"
-          onClick={handleClearCart}
-        >
+        <Button color="accent" onClick={handleClearCart}>
           Clear Cart
         </Button>
       </div>

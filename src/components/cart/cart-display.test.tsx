@@ -3,19 +3,16 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CartDisplay from './cart-display';
 import { useCart } from '@cps/trpc/hooks/use-cart';
-
-
 // Mock useCart hook
 jest.mock('@cps/trpc/hooks/use-cart', () => ({
   useCart: jest.fn(),
 }));
 
 jest.mock('@cps/components/button', () => {
-    return ({ children, ...props }: React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>) => (
-      <button {...props}>{children}</button>
-    );
-  });
-  
+  return ({ children, ...props }: React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>) => (
+    <button {...props}>{children}</button>
+  );
+});
 
 describe('CartDisplay Component', () => {
   const mockUseCart = useCart as jest.Mock;
@@ -56,9 +53,20 @@ describe('CartDisplay Component', () => {
 
     render(<CartDisplay userId="123" />);
 
-    expect(screen.getByText(/Product A/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product B/i)).toBeInTheDocument();
-    expect(screen.getByText(/Subtotal: \$40.00/i)).toBeInTheDocument();
+    // Check for product IDs
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+
+    // Check for prices
+    expect(screen.getAllByText('$10.00')).toHaveLength(1);
+    expect(screen.getAllByText('$20.00')).toHaveLength(3);
+
+    // Check for quantities
+    expect(screen.getByDisplayValue('2')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('1')).toBeInTheDocument();
+
+    // Check for subtotal
+    expect(screen.getByText('Subtotal: $40.00')).toBeInTheDocument();
   });
 
   it('calls updateCartItemQuantity when Update button is clicked', () => {
@@ -74,7 +82,7 @@ describe('CartDisplay Component', () => {
     render(<CartDisplay userId="123" />);
 
     const input = screen.getByDisplayValue('2');
-    fireEvent.change(input, { target: { value: '3' } }); 
+    fireEvent.change(input, { target: { value: '3' } });
 
     const updateButton = screen.getByText(/update/i);
     fireEvent.click(updateButton);
