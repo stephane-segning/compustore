@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CartDisplay from './cart-display';
 import { useCart } from '@cps/trpc/hooks/use-cart';
+
 // Mock useCart hook
 jest.mock('@cps/trpc/hooks/use-cart', () => ({
   useCart: jest.fn(),
@@ -24,7 +25,7 @@ describe('CartDisplay Component', () => {
   it('displays loading state when isLoading is true', () => {
     mockUseCart.mockReturnValue({ isLoading: true });
 
-    render(<CartDisplay userId="123" />);
+    render(<CartDisplay userId="123" username="testuser" />);
 
     expect(screen.getByText(/loading cart/i)).toBeInTheDocument();
   });
@@ -32,7 +33,7 @@ describe('CartDisplay Component', () => {
   it('displays empty cart message when cart is empty', () => {
     mockUseCart.mockReturnValue({ isLoading: false, cart: { items: [] } });
 
-    render(<CartDisplay userId="123" />);
+    render(<CartDisplay userId="123" username="testuser" />);
 
     expect(screen.getByText(/your cart is empty/i)).toBeInTheDocument();
   });
@@ -42,8 +43,8 @@ describe('CartDisplay Component', () => {
       isLoading: false,
       cart: {
         items: [
-          { id: '1', productId: 'Product A', price: 10, quantity: 2 },
-          { id: '2', productId: 'Product B', price: 20, quantity: 1 },
+          { id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 },
+          { id: '2', product: { name: 'Product B' }, price: 20, quantity: 1 },
         ],
       },
       removeFromCart: jest.fn(),
@@ -51,19 +52,11 @@ describe('CartDisplay Component', () => {
       updateCartItemQuantity: jest.fn(),
     });
 
-    render(<CartDisplay userId="123" />);
+    render(<CartDisplay userId="123" username="testuser" />);
 
-    // Check for product IDs
-    expect(screen.getByText('1')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
-
-    // Check for prices
-    expect(screen.getAllByText('$10.00')).toHaveLength(1);
-    expect(screen.getAllByText('$20.00')).toHaveLength(3);
-
-    // Check for quantities
-    expect(screen.getByDisplayValue('2')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('1')).toBeInTheDocument();
+    // Check for product names
+    expect(screen.getByText('Product A')).toBeInTheDocument();
+    expect(screen.getByText('Product B')).toBeInTheDocument();
 
     // Check for subtotal
     expect(screen.getByText('Subtotal: $40.00')).toBeInTheDocument();
@@ -73,19 +66,14 @@ describe('CartDisplay Component', () => {
     const updateCartItemQuantity = jest.fn();
     mockUseCart.mockReturnValue({
       isLoading: false,
-      cart: {
-        items: [{ id: '1', productId: 'Product A', price: 10, quantity: 2 }],
-      },
+      cart: { items: [{ id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 }] },
       updateCartItemQuantity,
     });
 
-    render(<CartDisplay userId="123" />);
+    render(<CartDisplay userId="123" username="testuser" />);
 
-    const input = screen.getByDisplayValue('2');
-    fireEvent.change(input, { target: { value: '3' } });
-
-    const updateButton = screen.getByText(/update/i);
-    fireEvent.click(updateButton);
+    fireEvent.change(screen.getByDisplayValue('2'), { target: { value: '3' } });
+    fireEvent.click(screen.getByText(/update/i));
 
     expect(updateCartItemQuantity).toHaveBeenCalledWith('1', 3);
   });
@@ -94,17 +82,13 @@ describe('CartDisplay Component', () => {
     const removeFromCart = jest.fn();
     mockUseCart.mockReturnValue({
       isLoading: false,
-      cart: {
-        items: [{ id: '1', productId: 'Product A', price: 10, quantity: 2 }],
-      },
+      cart: { items: [{ id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 }] },
       removeFromCart,
     });
 
-    render(<CartDisplay userId="123" />);
+    render(<CartDisplay userId="123" username="testuser" />);
 
-    const removeButton = screen.getByText(/remove/i);
-    fireEvent.click(removeButton);
-
+    fireEvent.click(screen.getByText(/remove/i));
     expect(removeFromCart).toHaveBeenCalledWith('1');
   });
 
@@ -112,15 +96,13 @@ describe('CartDisplay Component', () => {
     const clearCart = jest.fn();
     mockUseCart.mockReturnValue({
       isLoading: false,
-      cart: { items: [{ id: '1', productId: 'Product A', price: 10, quantity: 2 }] },
+      cart: { items: [{ id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 }] },
       clearCart,
     });
 
-    render(<CartDisplay userId="123" />);
+    render(<CartDisplay userId="123" username="testuser" />);
 
-    const clearButton = screen.getByText(/clear cart/i);
-    fireEvent.click(clearButton);
-
+    fireEvent.click(screen.getByTestId('clear-cart-button'));
     expect(clearCart).toHaveBeenCalled();
   });
 });

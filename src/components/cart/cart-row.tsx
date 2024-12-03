@@ -8,6 +8,9 @@ interface CartRowProps {
     productId: string;
     price: number;
     quantity: number;
+    product: {
+      name: string;
+    }
   };
   newQuantity: number;
   onQuantityChange: (itemId: string, quantity: number) => void;
@@ -24,18 +27,18 @@ const CartRow: React.FC<CartRowProps> = ({
 }) => {
   return (
     <tr key={item.id} className="text-center">
-      <td className="border border-gray-300 p-2">{item.productId}</td>
-      <td className="border border-gray-300 p-2">${item.price.toFixed(2)}</td>
-      <td className="border border-gray-300 p-2">
+      <td className="border border-neutral-300 p-2">{item.product.name}</td>
+      <td className="border border-neutral-300 p-2">${item.price.toFixed(2)}</td>
+      <td className="border border-neutral-300 p-2">
         <QuantityInput
           value={newQuantity || item.quantity}
           onChange={(quantity) => onQuantityChange(item.id, quantity)}
         />
       </td>
-      <td className="border border-gray-300 p-2">
+      <td className="border border-neutral-300 p-2">
         ${(item.price * item.quantity).toFixed(2)}
       </td>
-      <td className="border border-gray-300 p-2">
+      <td className="border border-neutral-300 p-2">
         <Button color="primary" onClick={() => onUpdateQuantity(item.id)}>
           Update
         </Button>
@@ -48,3 +51,4 @@ const CartRow: React.FC<CartRowProps> = ({
 };
 
 export default CartRow;
+export type { CartRowProps };
