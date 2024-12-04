@@ -12,7 +12,7 @@ const QuantityInput: React.FC<QuantityInputProps> = ({ value, onChange }) => {
       min="1"
       value={value}
       onChange={(e) => onChange(parseInt(e.target.value, 10))}
-      className="border border-gray-300 p-2 rounded w-20"
+      className="border border-neutral-300 p-2 rounded w-20"
     />
   );
 };
