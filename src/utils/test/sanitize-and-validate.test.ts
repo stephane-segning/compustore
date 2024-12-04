@@ -1,6 +1,7 @@
 import { sanitizeAndValidateProductData } from '../sanitize-and-validate';
 import { sanitizeProductData } from '../sanitize';
 
+// testing functions for product data sanitization and validation 
 test('sanitizeAndValidateProductData works correctly', () => {
   const product = {
     id: '123',
