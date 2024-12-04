@@ -35,5 +35,5 @@ jobs:
 
       - name: Run ESLint and post results
         uses: super-linter/super-linter@v7
-        with:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
