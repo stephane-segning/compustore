@@ -32,10 +32,7 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
 
-      - name: Run ESLint
-        run: yarn eslint . --ext .js,.ts,.tsx
-
       - name: Run ESLint and post results
         uses: super-linter/super-linter@v7
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
