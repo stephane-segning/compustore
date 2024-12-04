@@ -43,4 +43,16 @@ export const productRouter = createTRPCRouter({
         description: sanitizeHTML(product.description || ''),
       };
     }),
+  getAllProducts: publicProcedure.query(async () => {
+    const products = await db.product.findMany({
+      include: {
+        stocks: true,
+        prices: true,
+        images: true,
+        variants: true,
+      },
+    });
+
+    return products;
+  }),
 });
