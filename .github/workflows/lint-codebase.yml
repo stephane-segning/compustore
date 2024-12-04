@@ -27,13 +27,15 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile --check-files
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
 
       - name: Run ESLint
         run: yarn eslint . --ext .js,.ts,.tsx
 
       - name: Run ESLint and post results
-        uses: github/super-linter@v7
+        uses: super-linter/super-linter@v7
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
