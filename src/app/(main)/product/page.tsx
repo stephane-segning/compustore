@@ -84,7 +84,7 @@ const ProductsPage: React.FC = () => {
         {/* Best Sellers Section */}
         <section className='flex flex-col bg-neutral p-8 mb-8'>
         <h2 className="text-2xl mb-8 font-semibold text-left">Best Sellers</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-1 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-4">
           {/* <div className="grid gap-4"> */}
           {products?.length ? (
             <ProductList products={products} />
