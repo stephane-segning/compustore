@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { auth } from '@cps/server/auth';
 import { HydrateClient } from '@cps/trpc/server';
+import CartDisplay from '@cps/components/cart/cart-display';
 
 export default async function Home() {
   const session = await auth();
@@ -27,6 +28,7 @@ export default async function Home() {
             </Link>
           )}
         </div>
+        <CartDisplay userId={session?.user?.id ?? ''} />
       </main>
     </HydrateClient>
   );
