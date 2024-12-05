@@ -26,7 +26,7 @@ export const productRouter = createTRPCRouter({
           stocks: true,
           prices: true,
           images: true,
-          variants: true,
+          variants: true
         },
       });
 
@@ -39,8 +39,8 @@ export const productRouter = createTRPCRouter({
 
       return {
         ...product,
-        name: sanitizeHTML(product.name),
-        description: sanitizeHTML(product.description || ''),
+        // name: sanitizeHTML(product.name),
+        // description: sanitizeHTML(product.description || ''),
       };
     }),
   getAllProducts: publicProcedure.query(async () => {
