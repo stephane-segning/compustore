@@ -26,10 +26,9 @@ import {
   useRecordContext
 } from 'react-admin';
 import { Box, Typography } from '@mui/material';
-import { Product } from '@prisma/client';
 import AutoUploadImageInput from '@cps/components/admin/inputs/image';
 
-const ProductFilter = (props) => (
+const ProductFilter = (props: any) => (
   <Filter {...props}>
     <TextInput label="Search by Name" source="name" alwaysOn />
     <SelectInput
@@ -51,7 +50,7 @@ const ProductFilter = (props) => (
   </Filter>
 );
 
-export const ProductList = (props) => (
+export const ProductList = (props: any) => (
   <List filters={<ProductFilter />} {...props}>
     <Datagrid rowClick="edit">
       {/* Thumbnail Image */}
@@ -76,9 +75,9 @@ export const ProductList = (props) => (
       {/* Display Stock (Assuming total stock) */}
       <FunctionField
         label="Stock"
-        render={(record: Product) =>
+        render={(record: any) =>
           record.stocks && record.stocks.length > 0
-            ? record.stocks.reduce((total, stock) => total + stock.stock, 0)
+            ? record.stocks.reduce((total: any, stock: any) => total + stock.stock, 0)
             : 'N/A'
         }
       />
