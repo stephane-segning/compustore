@@ -60,9 +60,9 @@ const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({ params }) => {
           </a>
         </div>
         <div className="flex gap-2">
-          <Button className="w-full h-full rounded-full bg-gray-800 text-gray-200">T</Button>
-          <Button className="w-full h-full rounded-full bg-gray-800 text-gray-200">C</Button>
-          <Button className="w-full h-full rounded-full bg-gray-800 text-gray-200">A</Button>
+          <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">T</Button>
+          <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">C</Button>
+          <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">A</Button>
         </div>
       </nav>
 
