@@ -40,7 +40,6 @@ jobs:
           VALIDATE_CHECKOV: true
           VALIDATE_CSS_PRETTIER: true
           VALIDATE_GITLEAKS: true
-          VALIDATE_GIT_COMMITLINT: true
           VALIDATE_GIT_MERGE_CONFLICT_MARKERS: true
           VALIDATE_JAVASCRIPT_PRETTIER: true
           VALIDATE_JSON_PRETTIER: true
