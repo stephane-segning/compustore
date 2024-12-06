@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 export type ButtonProps<T extends React.ElementType> =
   React.HTMLAttributes<T> & {
     shape?: 'circle' | 'rounded' | 'square';
-    color?: 'primary' | 'secondary' | 'accent' | 'neutral';
+    color?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'danger';
     size?: 'sm' | 'md' | 'lg';
     flat?: boolean;
     as?: React.ElementType;
@@ -32,6 +32,7 @@ export default function Button<T extends React.ElementType>({
         color === 'secondary' && 'bg-secondary-light text-secondary-content',
         color === 'accent' && 'bg-accent-light text-accent-content',
         color === 'neutral' && 'bg-neutral-light text-neutral-content',
+        color === 'danger' && 'bg-danger-light text-danger-content',
         size === 'sm' && 'text-sm',
         size === 'md' && 'text-base',
         size === 'lg' && 'text-lg',

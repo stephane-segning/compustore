@@ -7,7 +7,7 @@ export default function AdminLayout(props: { children: React.ReactNode }) {
     <SessionProvider>
       <html lang="en" data-mode="light">
         <body>
-          <main className="relative">{props.children}</main>
+            {props.children}
         </body>
       </html>
     </SessionProvider>
