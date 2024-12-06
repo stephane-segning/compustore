@@ -5,14 +5,14 @@ import { use } from "react";
 import { useProduct } from "@cps/trpc/use-product";
 import Head from "next/head";
 import Button from "@cps/components/button";
-import ImageGallery from "@cps/components/image/image-gallery"; // Import your ImageGallery component
+import ImageGallery from "@cps/components/image/image-gallery"; 
 
 interface ProductDetailsPageProps {
-  params: Promise<{ id: string }>; // Update to Promise type
+  params: Promise<{ id: string }>; 
 }
 
 const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({ params }) => {
-  const { id } = use(params); // Unwrap the Promise with `use`
+  const { id } = use(params); // Unwrap Promise with `use`
   const { data, error, isLoading } = useProduct(id);
 
   if (isLoading) {
