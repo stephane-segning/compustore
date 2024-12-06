@@ -39,8 +39,8 @@ export const productRouter = createTRPCRouter({
 
       return {
         ...product,
-        name: sanitizeHTML(product.name),
-        description: sanitizeHTML(product.description || ''),
+        // name: sanitizeHTML(product.name),
+        // description: sanitizeHTML(product.description || ''),
       };
     }),
   // Fetch all products with pagination and custom includes
