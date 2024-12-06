@@ -1,17 +1,18 @@
 "use client";
 
 import React from "react";
+import { use } from "react";
 import { useProduct } from "@cps/trpc/use-product";
 import Head from "next/head";
 import Button from "@cps/components/button";
 import ImageGallery from "@cps/components/image/image-gallery"; // Import your ImageGallery component
 
 interface ProductDetailsPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>; // Update to Promise type
 }
 
 const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({ params }) => {
-  const { id } = params;
+  const { id } = use(params); // Unwrap the Promise with `use`
   const { data, error, isLoading } = useProduct(id);
 
   if (isLoading) {
