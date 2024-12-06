@@ -26,7 +26,7 @@ export const productRouter = createTRPCRouter({
           stocks: true,
           prices: true,
           images: true,
-          variants: true
+          variants: true,
         },
       });
 
