@@ -11,7 +11,9 @@ import optimizedImages from 'next-optimized-images';
 const config = {
     images: {
         domains: [
-            'www.dpreview.com'
+            'www.dpreview.com',
+            'encrypted-tbn0.gstatic.com',
+            'cdn.mos.cms.futurecdn.net'
         ]
     }
 };

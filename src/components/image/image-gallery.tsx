@@ -20,9 +20,11 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
         {/* First (large) image */}
         {visibleImages.slice(0, 1).map((image, idx) => (
           <div key={idx} className="col-span-2 row-span-2">
-            <img
+            <Image
               src={image.src}
               alt={image.alt}
+              width={100}
+              height={200}
               className="w-full h-full object-cover"
             />
           </div>
@@ -37,10 +39,10 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
               }`}
           >
             <Image
-              src="https://www.dpreview.com/files/p/articles/6269402639/canon_eosr8.jpeg"
-              width={100}
-              height={100}
+              src={image.src}
               alt={image.alt}
+              width={80}
+              height={80}
               className="w-full h-full object-cover"
             />
             {/* "Show More" button overlay */}
