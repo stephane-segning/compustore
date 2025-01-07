@@ -26,7 +26,7 @@ export const useCart = (userId: string) => {
         ...cart,
         items: [
           ...cart.items,
-          { productId, quantity }, // Optimistic update
+          { productId, quantity }, 
         ],
       };
       setCart(updatedCart);
