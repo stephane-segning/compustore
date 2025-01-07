@@ -119,7 +119,7 @@ describe("useCart hook", () => {
 
   it("should refetch the cart", () => {
     const { result } = renderHook(() => useCart(userId));
-    act(() => result.current.refetchCart());
+    act(() => result.current.refetchCartFromApi());
     expect(mockedApi.cart.getCart.useQuery().refetch).toHaveBeenCalled();
   });
 
