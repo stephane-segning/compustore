@@ -10,13 +10,11 @@ import optimizedImages from 'next-optimized-images';
 /** @type {import('next').NextConfig} */
 const config = {
     images: {
-        domains: [
-          'images.pexels.com',
-          'm.media-amazon.com',
-          's.alicdn.com',
-          'assets2.razerzone.com',
-        'encrypted-tbn0.gstatic.com',
-          'picsum.photos'
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**', 
+            },
         ],
       },
 };
