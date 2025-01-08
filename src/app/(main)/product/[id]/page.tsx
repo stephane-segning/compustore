@@ -1,6 +1,5 @@
 
 import React from "react";
-import Head from "next/head";
 import ProductLoader from "./product-laoder";
 
 interface ProductDetailsPageProps {
@@ -12,9 +11,6 @@ const ProductDetailsPage: React.FC<ProductDetailsPageProps> = async ({ params })
 
   return (
     <div>
-      <Head>
-        <title>Product Details</title>
-      </Head>
       <ProductLoader id={id} />
     </div>
   );
