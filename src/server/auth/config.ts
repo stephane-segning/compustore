@@ -55,8 +55,8 @@ export const authConfig: NextAuthConfig = {
   session: {
     strategy: "database",
     // Seconds - How long until an idle session expires and is no longer valid.
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
+    maxAge: parseInt(process.env.NEXTAUTH_SESSION_MAX_AGE || '2592000', 10), // 30 days
+    updateAge: parseInt(process.env.NEXTAUTH_SESSION_UPDATE_AGE || '86400', 10), // 24 hours
   },
 
   callbacks: {
