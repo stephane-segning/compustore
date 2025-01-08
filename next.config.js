@@ -10,11 +10,15 @@ import optimizedImages from 'next-optimized-images';
 /** @type {import('next').NextConfig} */
 const config = {
     images: {
-        domains: [
-            'www.dpreview.com',
-            'encrypted-tbn0.gstatic.com',
-            'cdn.mos.cms.futurecdn.net'
+        remotePatterns: [
+            {
+
+            protocol: 'https',
+            hostname: '**',
+            
+            }
         ]
+        
     }
 };
 export default compose([optimizedImages], config);
