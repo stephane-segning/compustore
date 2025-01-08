@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Filter Component Styles */
+.filter-component {
+  @apply text-black space-y-4;
+}
+
+.filter-component h2 {
+  @apply text-xl font-semibold mb-0.5 text-black;
+}
+
+.dropdown {
+  @apply relative inline-block w-[11%];
+}
+
+.dropdown-toggle {
+  @apply bg-primary text-white px-4 py-2 rounded-md flex justify-between items-center w-full font-medium shadow hover:bg-primary-light transition;
+}
+
+.dropdown-toggle[aria-expanded="true"] {
+  @apply rounded-b-none;
+}
+
+.filter-container {
+  @apply bg-white text-black border rounded-b-md shadow-md p-4 mt-[-1px] space-y-3 w-full flex flex-col;
+}
+
+.filter-option {
+  @apply flex items-center space-x-10 cursor-pointer;
+}
+
+.filter-option input[type="checkbox"] {
+  @apply w-4 h-4 text-accent focus:ring-accent border-b-blue-950 rounded mr-3;
+}
+
+.filter-option label {
+  @apply text-sm text-black;
+}

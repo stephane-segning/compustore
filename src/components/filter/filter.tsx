@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import './filter.scss'; 
+import Button from '@cps/components/button';
 
 type FilterOption = {
   label: string;
@@ -35,9 +37,13 @@ const Filter: React.FC = () => {
     <div className="filter-component">
       <h2>What are you looking for?</h2>
       <div className="dropdown">
-        <button onClick={toggleDropdown} className="dropdown-toggle">
+        <Button
+          shape='rounded'
+          color='primary'
+          size='md'
+          onClick={toggleDropdown}>
           Filter by Category {isDropdownOpen ? '▲' : '▼'}
-        </button>
+        </Button>
         {isDropdownOpen && (
           <div className="filter-container">
             {categories.map((category) => (
