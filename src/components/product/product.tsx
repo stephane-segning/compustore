@@ -30,7 +30,7 @@ const Product: React.FC<ProductProps> = ({ title, description, price, imageUrl, 
       {onAddToCart && (
         <Button
           color='secondary'
-          className="h-full mt-2 py-3 flex justify-center items-center"
+          className="mt-2 py-3 flex justify-center items-center"
           onClick={onAddToCart}
         >
           Add to cart
