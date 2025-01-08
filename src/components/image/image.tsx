@@ -1,12 +1,17 @@
 import React from "react";
+import Image from "next/image";
 
 interface ImageProps {
   src: string;
   alt: string;
 }
 
-const Image: React.FC<ImageProps> = ({ src, alt }) => {
-  return <img src={src} alt={alt} className="w-64 h-auto object-contain" />;
+const LoneImage: React.FC<ImageProps> = ({ src, alt }) => {
+  return <Image
+    src={src} alt={alt}
+    width={70}
+    height={300}
+    className="w-64 h-auto object-contain" />;
 };
 
-export default Image;
+export default LoneImage;
