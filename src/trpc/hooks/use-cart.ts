@@ -6,7 +6,7 @@ import { clearCartCookie, getCartCookie, setCartCookie } from '@cps/utils/cart-c
 export const useCart = (userId: string | undefined) => {
   const [cartId, setCartId] = useState<string | undefined>(getCartCookie());
 
-  const { data, refetch: refetchCartFromApi, isLoading } = api.cart.getCart.useQuery(
+  const { data, refetch: refetchCartFromApi, isPending } = api.cart.getCart.useQuery(
     { userId: userId },
     { enabled: !!userId },
   );
@@ -24,33 +24,24 @@ export const useCart = (userId: string | undefined) => {
   }, [data]);
 
   const addToCart = api.cart.addToCart.useMutation({
-    onSuccess: () => {
-      refetchCartFromApi();
-    },
+    onSuccess: () => refetchCartFromApi(),
   });
 
   const updateCart = api.cart.updateCart.useMutation({
-    onSuccess: () => {
-      refetchCartFromApi();
-    },
+    onSuccess: () => refetchCartFromApi(),
   });
 
   const removeFromCart = api.cart.removeFromCart.useMutation({
-    onSuccess: () => {
-      refetchCartFromApi();
-    },
+    onSuccess: () => refetchCartFromApi(),
   });
 
   const clearCart = api.cart.clearCart.useMutation({
-    onSuccess: () => {
-      setCartId(undefined);
-      refetchCartFromApi();
-    },
+    onSuccess: () => refetchCartFromApi(),
   });
 
   return {
     cart: data,
-    isLoading,
+    isLoading: Boolean(isPending || addToCart.isPending || updateCart.isPending || removeFromCart.isPending || clearCart.isPending),
     addToCart: (productId: string, quantity: number) => addToCart.mutate({ productId, quantity }),
     updateCart: (itemId: string, quantity: number) => updateCart.mutate({ itemId, quantity }),
     removeFromCart: (itemId: string) => removeFromCart.mutate({ itemId }),

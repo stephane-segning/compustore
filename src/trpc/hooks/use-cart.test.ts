@@ -35,7 +35,7 @@ describe('useCart hook', () => {
     mockedApi.cart.getCart.useQuery.mockReturnValue({
       data: { items: [] },
       refetch: jest.fn(),
-      isLoading: false,
+      isPending: false,
     });
 
     mockedApi.cart.addToCart.useMutation.mockReturnValue({
