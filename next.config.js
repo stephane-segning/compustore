@@ -8,6 +8,15 @@ import compose from 'next-compose-plugins';
 import optimizedImages from 'next-optimized-images';
 
 /** @type {import('next').NextConfig} */
-const config = {};
-
+const config = {
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**', 
+            },
+        ],
+      },
+};
+            
 export default compose([optimizedImages], config);
