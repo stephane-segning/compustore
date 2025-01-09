@@ -1,25 +1,25 @@
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
-const CART_COOKIE_NAME = "cart-cookies";
+const CART_COOKIE_NAME = 'cart-cookies';
 
 /**
  * Set cart data in cookies
  */
-export function setCartCookie(cart: any) {
-  Cookies.set(CART_COOKIE_NAME, JSON.stringify(cart), { expires: 7, path: "/" }); 
+export function setCartCookie(cartId: string) {
+  Cookies.set(CART_COOKIE_NAME, cartId, { expires: 7, path: '/' });
 }
 
 /**
  * Get cart data from cookies
  */
 export function getCartCookie() {
-  const cart = Cookies.get(CART_COOKIE_NAME);
-  return cart ? JSON.parse(cart) : { items: [] };
+  const cartId = Cookies.get(CART_COOKIE_NAME);
+  return cartId ? cartId : undefined;
 }
 
 /**
  * Clear the cart data from cookies
  */
 export function clearCartCookie() {
-  Cookies.remove(CART_COOKIE_NAME, { path: "/" });
+  Cookies.remove(CART_COOKIE_NAME, { path: '/' });
 }

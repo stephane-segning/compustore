@@ -1,92 +1,47 @@
-"use client";
+'use client';
 import { api } from '../react';
 import { useEffect, useState } from 'react';
-import { setCartCookie, clearCartCookie, getCartCookie } from '@cps/utils/cart-cookie';
+import { clearCartCookie, getCartCookie, setCartCookie } from '@cps/utils/cart-cookie';
 
-export const useCart = (userId: string) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [cart, setCart] = useState<any>(getCartCookie());
+export const useCart = (userId: string | undefined) => {
+  const [cartId, setCartId] = useState<string | undefined>(getCartCookie());
 
-  const { data, refetch: refetchCartFromApi } = api.cart.getCart.useQuery(
-    { userId },
-    { enabled: !!userId }
+  const { data, refetch: refetchCartFromApi, isPending } = api.cart.getCart.useQuery(
+    { userId: userId },
+    { enabled: !!userId },
   );
 
   useEffect(() => {
-    if (data) {
-      setCart(data);
-      setCartCookie(data);
+    if (cartId) {
+      setCartCookie(cartId);
+    } else {
+      clearCartCookie();
     }
+  }, [cartId]);
+
+  useEffect(() => {
+    setCartId(data?.id);
   }, [data]);
 
   const addToCart = api.cart.addToCart.useMutation({
-    onMutate: async ({ productId, quantity }) => {
-      setIsLoading(true);
-      const updatedCart = {
-        ...cart,
-        items: [
-          ...cart.items,
-          { productId, quantity }, 
-        ],
-      };
-      setCart(updatedCart);
-      setCartCookie(updatedCart);
-    },
-    onSuccess: () => {
-      refetchCartFromApi();
-    },
-    onSettled: () => setIsLoading(false),
+    onSuccess: () => refetchCartFromApi(),
   });
 
   const updateCart = api.cart.updateCart.useMutation({
-    onMutate: async ({ itemId, quantity }) => {
-      setIsLoading(true);
-      const updatedCart = {
-        ...cart,
-        items: cart.items.map((item: any) =>
-          item.id === itemId ? { ...item, quantity } : item
-        ),
-      };
-      setCart(updatedCart);
-      setCartCookie(updatedCart);
-    },
-    onSuccess: () => {
-      refetchCartFromApi();
-    },
-    onSettled: () => setIsLoading(false),
+    onSuccess: () => refetchCartFromApi(),
   });
 
   const removeFromCart = api.cart.removeFromCart.useMutation({
-    onMutate: async ({ itemId }) => {
-      setIsLoading(true);
-      const updatedCart = {
-        ...cart,
-        items: cart.items.filter((item: any) => item.id !== itemId),
-      };
-      setCart(updatedCart);
-      setCartCookie(updatedCart);
-    },
-    onSuccess: () => {
-      refetchCartFromApi();
-    },
-    onSettled: () => setIsLoading(false),
+    onSuccess: () => refetchCartFromApi(),
   });
 
   const clearCart = api.cart.clearCart.useMutation({
-    onMutate: async () => {
-      setIsLoading(true);
-      setCart({ items: [] });
-      clearCartCookie();
-    },
-    onSuccess: () => {
-      refetchCartFromApi();
-    },
-    onSettled: () => setIsLoading(false),
+    onSuccess: () => refetchCartFromApi(),
   });
 
   return {
-    cart,
-    isLoading,
+    cart: data,
+    isLoading: Boolean(isPending || addToCart.isPending || updateCart.isPending || removeFromCart.isPending || clearCart.isPending),
     addToCart: (productId: string, quantity: number) => addToCart.mutate({ productId, quantity }),
     updateCart: (itemId: string, quantity: number) => updateCart.mutate({ itemId, quantity }),
     removeFromCart: (itemId: string) => removeFromCart.mutate({ itemId }),

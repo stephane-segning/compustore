@@ -4,27 +4,26 @@ import { db } from '../../db';
 
 const CartItemSchema = z.object({
   productId: z.string(),
-  quantity: z.number().min(1), 
+  quantity: z.number().min(1),
 });
 
 export const cart = createTRPCRouter({
   getCart: publicProcedure
-    .input(z.object({ userId: z.string() }))
+    .input(z.object({ userId: z.string().optional() }))
     .query(async ({ input }) => {
       const { userId } = input;
-      const cart = await db.cart.findUnique({
+      return db.cart.findUnique({
         where: { userId },
         include: {
           items: {
             include: {
               product: {
-                select: { name: true, prices: true }, 
+                select: { name: true, prices: true },
               },
             },
           },
         },
       });
-      return cart ?? { items: [] };
     }),
   addToCart: publicProcedure
     .input(z.object({
@@ -39,7 +38,7 @@ export const cart = createTRPCRouter({
       });
 
       if (!cart) {
-        throw new Error("Cart not found");
+        throw new Error('Cart not found');
       }
 
       const existingCartItem = await ctx.db.cartItem.findFirst({
@@ -61,12 +60,12 @@ export const cart = createTRPCRouter({
         });
 
         if (!product || !product.prices.length) {
-          throw new Error("Product not found or has no prices");
+          throw new Error('Product not found or has no prices');
         }
 
         const price = product.prices[0]?.price;
         if (typeof price !== 'number') {
-          throw new Error("Invalid price for the product");
+          throw new Error('Invalid price for the product');
         }
 
         await ctx.db.cartItem.create({
@@ -84,12 +83,12 @@ export const cart = createTRPCRouter({
 
   updateCart: publicProcedure
     .input(z.object({
-      itemId: z.string(),      quantity: z.number().min(1),
+      itemId: z.string(), quantity: z.number().min(1),
     }))
     .mutation(async ({ input, ctx }) => {
       const { itemId, quantity } = input;
 
-      await ctx.db.cartItem.update({
+      await db.cartItem.update({
         where: { id: itemId },
         data: { quantity },
       });
@@ -108,12 +107,15 @@ export const cart = createTRPCRouter({
     }),
 
   clearCart: publicProcedure
-    .input(z.object({ userId: z.string() }))
+    .input(z.object({ userId: z.string().optional() }))
     .mutation(async ({ input }) => {
       const { userId } = input;
 
       const cart = await db.cart.findUnique({ where: { userId } });
-      if (!cart) throw new Error('Cart not found');
+      if (!cart) {
+        // Cart not found, nothing to clear
+        return { success: true };
+      }
 
       await db.cartItem.deleteMany({
         where: { cartId: cart.id },

@@ -18,14 +18,14 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ userId }) => {
     return <div className="text-center text-gray-500">Loading cart...</div>;
   }
 
-  if (!cart || !cart.items || cart.items.length === 0) {
+  if (!cart || !cart?.items || cart.items.length === 0) {
     return <div className="text-center text-gray-500">Your cart is empty.</div>;
   }
 
   const subtotal = cart.items.reduce(
     (sum: number, item: { price: number; quantity: number }) =>
       sum + item.price * item.quantity,
-    0
+    0,
   );
 
   const handleUpdateQuantity = (itemId: string) => {
@@ -46,7 +46,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ userId }) => {
   const handleQuantityChange = (itemId: string, quantity: number) => {
     setNewQuantity((prev) => ({
       ...prev,
-      [itemId]: quantity
+      [itemId]: quantity,
     }));
   };
 
