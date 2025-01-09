@@ -1,8 +1,8 @@
-import { renderHook, act } from "@testing-library/react";
-import { useCart } from "./use-cart";
+import { act, renderHook } from '@testing-library/react';
+import { useCart } from './use-cart';
 
 // Mock the `api` implementation directly
-jest.mock("../react", () => ({
+jest.mock('../react', () => ({
   api: {
     cart: {
       getCart: {
@@ -24,10 +24,10 @@ jest.mock("../react", () => ({
   },
 }));
 
-const mockedApi = require("../react").api;
+const mockedApi = require('../react').api;
 
-describe("useCart hook", () => {
-  const userId = "test-user-id";
+describe('useCart hook', () => {
+  const userId = 'test-user-id';
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -35,6 +35,7 @@ describe("useCart hook", () => {
     mockedApi.cart.getCart.useQuery.mockReturnValue({
       data: { items: [] },
       refetch: jest.fn(),
+      isLoading: false,
     });
 
     mockedApi.cart.addToCart.useMutation.mockReturnValue({
@@ -66,50 +67,50 @@ describe("useCart hook", () => {
     });
   });
 
-  it("should fetch cart data for a user", () => {
+  it('should fetch cart data for a user', () => {
     renderHook(() => useCart(userId));
     expect(mockedApi.cart.getCart.useQuery).toHaveBeenCalledWith(
       { userId },
-      { enabled: !!userId }
+      { enabled: !!userId },
     );
   });
 
-  it("should add an item to the cart", async () => {
+  it('should add an item to the cart', async () => {
     const { result } = renderHook(() => useCart(userId));
-    act(() => result.current.addToCart("product-1", 2));
+    act(() => result.current.addToCart('product-1', 2));
     expect(mockedApi.cart.addToCart.useMutation().mutate).toHaveBeenCalledWith({
-      productId: "product-1",
+      productId: 'product-1',
       quantity: 2,
     });
   });
 
-  it("should update item quantity in the cart", async () => {
+  it('should update item quantity in the cart', async () => {
     const { result } = renderHook(() => useCart(userId));
-    act(() => result.current.updateCart("item-1", 3));
+    act(() => result.current.updateCart('item-1', 3));
     expect(mockedApi.cart.updateCart.useMutation().mutate).toHaveBeenCalledWith({
-      itemId: "item-1",
+      itemId: 'item-1',
       quantity: 3,
     });
   });
 
-  it("should update cart item quantity using updateCartItemQuantity", async () => {
+  it('should update cart item quantity using updateCartItemQuantity', async () => {
     const { result } = renderHook(() => useCart(userId));
-    act(() => result.current.updateCartItemQuantity("item-2", 4));
+    act(() => result.current.updateCartItemQuantity('item-2', 4));
     expect(mockedApi.cart.updateCart.useMutation().mutate).toHaveBeenCalledWith({
-      itemId: "item-2",
+      itemId: 'item-2',
       quantity: 4,
     });
   });
 
-  it("should remove an item from the cart", async () => {
+  it('should remove an item from the cart', async () => {
     const { result } = renderHook(() => useCart(userId));
-    act(() => result.current.removeFromCart("item-1"));
+    act(() => result.current.removeFromCart('item-1'));
     expect(mockedApi.cart.removeFromCart.useMutation().mutate).toHaveBeenCalledWith({
-      itemId: "item-1",
+      itemId: 'item-1',
     });
   });
 
-  it("should clear the cart", async () => {
+  it('should clear the cart', async () => {
     const { result } = renderHook(() => useCart(userId));
     act(() => result.current.clearCart());
     expect(mockedApi.cart.clearCart.useMutation().mutate).toHaveBeenCalledWith({
@@ -117,29 +118,29 @@ describe("useCart hook", () => {
     });
   });
 
-  it("should refetch the cart", () => {
+  it('should refetch the cart', () => {
     const { result } = renderHook(() => useCart(userId));
     act(() => result.current.refetchCartFromApi());
     expect(mockedApi.cart.getCart.useQuery().refetch).toHaveBeenCalled();
   });
 
-  it("should handle loading state during addToCart mutation", async () => {
+  it('should handle loading state during addToCart mutation', async () => {
     const { result } = renderHook(() => useCart(userId));
     expect(result.current.isLoading).toBe(false);
 
-    act(() => result.current.addToCart("product-1", 2));
+    act(() => result.current.addToCart('product-1', 2));
     expect(result.current.isLoading).toBe(false);
   });
 
-  it("should handle loading state during updateCart mutation", async () => {
+  it('should handle loading state during updateCart mutation', async () => {
     const { result } = renderHook(() => useCart(userId));
     expect(result.current.isLoading).toBe(false);
 
-    act(() => result.current.updateCart("item-1", 5));
+    act(() => result.current.updateCart('item-1', 5));
     expect(result.current.isLoading).toBe(false);
   });
 
-  it("should handle loading state during clearCart mutation", async () => {
+  it('should handle loading state during clearCart mutation', async () => {
     const { result } = renderHook(() => useCart(userId));
     expect(result.current.isLoading).toBe(false);
 
