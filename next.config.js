@@ -18,5 +18,12 @@ const config = {
         ],
       },
 };
-
+            protocol: 'https',
+            hostname: '**',
+            
+            }
+        ]
+        
+    }
+};
 export default compose([optimizedImages], config);

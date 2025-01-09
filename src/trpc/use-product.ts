@@ -17,8 +17,25 @@ export const useProduct = (id: string) => {
 };
 
 // Hook to fetch all products
-export const useAllProducts = () => {
-  const { data, error, isLoading } = trpc.product.getAllProducts.useQuery();
+export const useAllProducts = (input?: {
+  page?: number;
+  limit?: number;
+  include?: {
+    stocks?: boolean;
+    prices?: boolean;
+    images?: boolean;
+    variants?: boolean;
+  };
+}) => {
+  // Default input values
+  const defaultInput = {
+    page: 1,
+    limit: 10,
+    include: { stocks: false, prices: false, images: false, variants: false },
+    ...input, // Override defaults with provided input
+  };
+
+  const { data, error, isLoading } = trpc.product.getAllProducts.useQuery(defaultInput);
 
   if (isLoading) {
     return { data: [], error: null, isLoading };
