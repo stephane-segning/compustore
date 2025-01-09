@@ -23,7 +23,11 @@ export const env = createEnv({
     S3_PORT: z.number(),
     S3_SCHEME: z.string(),
     S3_BUCKET: z.string(),
-    S3_CDN_URL: z.string()
+    S3_CDN_URL: z.string(),
+
+    // Add session environment variables
+    NEXTAUTH_SESSION_MAX_AGE: z.string().transform(Number),
+    NEXTAUTH_SESSION_UPDATE_AGE: z.string().transform(Number),
   },
 
   /**
@@ -51,7 +55,10 @@ export const env = createEnv({
     S3_PORT: Number(process.env.S3_PORT),
     S3_SCHEME: process.env.S3_SCHEME,
     S3_BUCKET: process.env.S3_BUCKET,
-    S3_CDN_URL: process.env.S3_CDN_URL
+    S3_CDN_URL: process.env.S3_CDN_URL,
+
+    NEXTAUTH_SESSION_MAX_AGE: process.env.NEXTAUTH_SESSION_MAX_AGE,
+    NEXTAUTH_SESSION_UPDATE_AGE: process.env.NEXTAUTH_SESSION_UPDATE_AGE,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
