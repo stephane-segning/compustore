@@ -6,6 +6,7 @@ import DiscordProvider from 'next-auth/providers/discord';
 // import FacebookProvider from "next-auth/providers/facebook";
 
 import { db } from '@cps/server/db';
+import { env } from '@cps/env';
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -54,9 +55,9 @@ export const authConfig: NextAuthConfig = {
   
   session: {
     strategy: "database",
-    // Seconds - How long until an idle session expires and is no longer valid.
-    maxAge: parseInt(process.env.NEXTAUTH_SESSION_MAX_AGE || '2592000', 10), // 30 days
-    updateAge: parseInt(process.env.NEXTAUTH_SESSION_UPDATE_AGE || '86400', 10), // 24 hours
+    // use validation environment variables
+    maxAge: env.NEXTAUTH_SESSION_MAX_AGE, 
+    updateAge: env.NEXTAUTH_SESSION_UPDATE_AGE,
   },
 
   callbacks: {
