@@ -1,14 +1,16 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
+import Button from '../button';
 
 interface ProductProps {
   title: string;
   description?: string;
   price: string;
   imageUrl: string;
+  onAddToCart?: () => void;
 }
 
-const Product: React.FC<ProductProps> = ({ title, description, price, imageUrl }) => {
+const Product: React.FC<ProductProps> = ({ title, description, price, imageUrl, onAddToCart}) => {
   const sanitizedDescription = description
     ? DOMPurify.sanitize(description, {
         ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'u', 'p', 'span'],
@@ -24,7 +26,17 @@ const Product: React.FC<ProductProps> = ({ title, description, price, imageUrl }
         className="text-md whitespace-nowrap overflow-hidden text-ellipsis"
         dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
       />
-      <p className="text-gray-600">{price}</p>
+      <p className="text-neutral-600">{price}</p>
+      {onAddToCart && (
+        <Button
+          color='secondary'
+          className="mt-2 py-3 flex justify-center items-center"
+          onClick={onAddToCart}
+        >
+          Add to cart
+        </Button>
+      )}
+      
     </div>
   );
 };
