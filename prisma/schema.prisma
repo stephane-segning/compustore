@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -17,6 +18,8 @@ datasource db {
 enum Currency {
   XAF
   USD
+
+  @@map("currencies")
 }
 
 model ProductPrice {
@@ -36,6 +39,7 @@ model ProductPrice {
   @@index([productId])
   @@index([productId, variantId])
   @@index([variantId])
+  @@map("product_prices")
 }
 
 model ProductStock {
@@ -55,17 +59,19 @@ model ProductStock {
   @@index([productId])
   @@index([productId, variantId])
   @@index([variantId])
+  @@map("product_stocks")
 }
 
 model Category {
   id          Int       @id @default(autoincrement())
   name        String    @unique
   description String?
-  products    Product[] @relation("ProductCategories")
+  products    Product[] @relation("product_categories")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
   @@index([name])
+  @@map("categories")
 }
 
 model Product {
@@ -80,19 +86,25 @@ model Product {
   thumbnail   Image?  @relation("thumbnail", fields: [thumbnailId], references: [id])
   thumbnailId String? @unique
 
-  images   Image[]          @relation("ProductImages")
+  images   Image[]          @relation("product_images")
   variants ProductVariant[]
-  CartItem CartItem[]
+  cartItem CartItem[]
 
   // Add the relationship to categories
-  categories Category[] @relation("ProductCategories")
+  categories Category[] @relation("product_categories")
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @default(now()) @updatedAt
+
+  @@index([name])
+  @@index([status, name])
+  @@map("products")
 }
 
 enum ProductStatus {
   DRAFT
   PUBLISHED
+
+  @@map("product_statuses")
 }
 
 model ProductVariant {
@@ -109,13 +121,14 @@ model ProductVariant {
   thumbnail   Image?  @relation("thumbnail", fields: [thumbnailId], references: [id])
   thumbnailId String? @unique
 
-  images Image[] @relation("VariantImages")
+  images Image[] @relation("variant_images")
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @default(now()) @updatedAt
   CartItem  CartItem[]
 
   @@index([productId])
+  @@map("product_variants")
 }
 
 model Image {
@@ -126,10 +139,10 @@ model Image {
   productThumbnail Product?        @relation("thumbnail")
   variantThumbnail ProductVariant? @relation("thumbnail")
 
-  product   Product? @relation("ProductImages", fields: [productId], references: [id])
+  product   Product? @relation("product_images", fields: [productId], references: [id])
   productId String?
 
-  variant   ProductVariant? @relation("VariantImages", fields: [variantId], references: [id])
+  variant   ProductVariant? @relation("variant_images", fields: [variantId], references: [id])
   variantId String?
 
   createdAt DateTime @default(now())
@@ -137,6 +150,7 @@ model Image {
 
   @@index([productId])
   @@index([variantId])
+  @@map("images")
 }
 
 model Cart {
@@ -146,6 +160,9 @@ model Cart {
   items     CartItem[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+
+  @@index([userId])
+  @@map("carts")
 }
 
 model CartItem {
@@ -160,6 +177,13 @@ model CartItem {
   price     Float // Price at the time of adding to cart
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
+
+  @@index([cartId])
+  @@index([cartId, productId])
+  @@index([productId])
+  @@index([productId, variantId])
+  @@index([variantId])
+  @@map("cart_items")
 }
 
 // Necessary for Next auth
@@ -182,7 +206,9 @@ model Account {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
+  @@unique([userId])
   @@unique([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Session {
@@ -194,6 +220,9 @@ model Session {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([userId])
+  @@map("sessions")
 }
 
 model User {
@@ -209,6 +238,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
   cart      Cart?
+
+  @@index([name])
+  @@index([email])
+  @@index([role])
+  @@map("users")
 }
 
 model VerificationToken {
@@ -220,9 +254,12 @@ model VerificationToken {
   updatedAt DateTime @default(now()) @updatedAt
 
   @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 enum Role {
   USER
   ADMIN
+
+  @@map("roles")
 }

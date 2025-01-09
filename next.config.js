@@ -9,14 +9,14 @@ import optimizedImages from 'next-optimized-images';
 
 /** @type {import('next').NextConfig} */
 const config = {
-    images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: '**', 
-            },
-        ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
       },
+    ],
+  },
 };
-            
+
 export default compose([optimizedImages], config);
