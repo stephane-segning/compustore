@@ -17,8 +17,6 @@ const ProductsDisplay: React.FC = () => {
     return <div className="text-center py-10 text-danger">Error: {error?.message}</div>;
   }
 
-  console.log({ rawProducts });
-
   // O(p) = n ~> 10p = 10n ~> O(n)
   const products = rawProducts?.products?.map((product) => ({
     id: product.id,
