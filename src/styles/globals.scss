@@ -1,10 +1,10 @@
-@use "sass:color";
+@use 'sass:color';
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-@import "~@fontsource/roboto";
+@import '~@fontsource/roboto';
 
 :root {
   $primary-color: #ff33cc;

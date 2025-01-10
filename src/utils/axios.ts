@@ -5,7 +5,7 @@ export let client: AxiosInstance;
 export const getApiClient = () => {
   if (!client) {
     client = axios.create({
-      withCredentials: false
+      withCredentials: false,
     });
   }
 

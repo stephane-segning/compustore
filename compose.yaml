@@ -35,5 +35,5 @@ services:
       MINIO_BROWSER_LOGIN_ANIMATION: ${MINIO_BROWSER_LOGIN_ANIMATION:-off}
 
 volumes:
-  db: { }
-  minio: { }
+  db: {}
+  minio: {}

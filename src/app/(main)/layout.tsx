@@ -1,6 +1,6 @@
-import '@cps/styles/globals.scss';
-import Navbar from '@cps/components/layout/navbar';
 import Footer from '@cps/components/layout/footer';
+import Navbar from '@cps/components/layout/navbar';
+import '@cps/styles/globals.scss';
 import { type Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <Navbar/>
+        <Navbar />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

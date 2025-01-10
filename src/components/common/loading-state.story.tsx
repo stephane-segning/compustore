@@ -1,9 +1,8 @@
-import React from "react";
-import LoadingState from "./loading-state";
+import LoadingState from './loading-state';
 
 export default {
-    title: "Components/LoadingState",
-    component: LoadingState,
+  title: 'Components/LoadingState',
+  component: LoadingState,
 };
 
 const Template = () => <LoadingState />;

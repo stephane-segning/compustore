@@ -1,26 +1,25 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Filter from "./filter";
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import Filter from './filter';
 
-describe("Filter Component", () => {
-  test("renders the dropdown button", () => {
+describe('Filter Component', () => {
+  test('renders the dropdown button', () => {
     render(<Filter />);
-    const dropdownButton = screen.getByRole("button", {
+    const dropdownButton = screen.getByRole('button', {
       name: /filter by category/i,
     });
     expect(dropdownButton).toBeInTheDocument();
   });
 
-  test("dropdown content is hidden by default", () => {
+  test('dropdown content is hidden by default', () => {
     render(<Filter />);
     const dropdownContent = screen.queryByText(/electronics/i);
     expect(dropdownContent).not.toBeInTheDocument();
   });
 
-  test("dropdown toggles visibility on click", () => {
+  test('dropdown toggles visibility on click', () => {
     render(<Filter />);
-    const dropdownButton = screen.getByRole("button", {
+    const dropdownButton = screen.getByRole('button', {
       name: /filter by category/i,
     });
 
@@ -34,25 +33,25 @@ describe("Filter Component", () => {
     expect(screen.queryByText(/electronics/i)).not.toBeInTheDocument();
   });
 
-  test("displays all categories in vertical order when dropdown is open", () => {
+  test('displays all categories in vertical order when dropdown is open', () => {
     render(<Filter />);
-    const dropdownButton = screen.getByRole("button", {
+    const dropdownButton = screen.getByRole('button', {
       name: /filter by category/i,
     });
 
     // Open the dropdown
     fireEvent.click(dropdownButton);
-    const categoryOptions = screen.getAllByRole("checkbox");
+    const categoryOptions = screen.getAllByRole('checkbox');
 
     expect(categoryOptions.length).toBe(3); // Ensure all categories are rendered
-    expect(categoryOptions[0]).toHaveAccessibleName("Electronics");
-    expect(categoryOptions[1]).toHaveAccessibleName("Hardware");
-    expect(categoryOptions[2]).toHaveAccessibleName("Software");
+    expect(categoryOptions[0]).toHaveAccessibleName('Electronics');
+    expect(categoryOptions[1]).toHaveAccessibleName('Hardware');
+    expect(categoryOptions[2]).toHaveAccessibleName('Software');
   });
 
-  test("checks and unchecks a category", () => {
+  test('checks and unchecks a category', () => {
     render(<Filter />);
-    const dropdownButton = screen.getByRole("button", {
+    const dropdownButton = screen.getByRole('button', {
       name: /filter by category/i,
     });
 
@@ -70,9 +69,9 @@ describe("Filter Component", () => {
     expect(electronicsCheckbox).not.toBeChecked();
   });
 
-  test("maintains state of selected categories when toggling dropdown visibility", () => {
+  test('maintains state of selected categories when toggling dropdown visibility', () => {
     render(<Filter />);
-    const dropdownButton = screen.getByRole("button", {
+    const dropdownButton = screen.getByRole('button', {
       name: /filter by category/i,
     });
 

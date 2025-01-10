@@ -1,4 +1,5 @@
-set -e
+set -ex
 
 yarn lint:fix
 yarn test
+yarn format:write

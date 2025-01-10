@@ -5,8 +5,8 @@ import DiscordProvider from 'next-auth/providers/discord';
 // import GoogleProvider from "next-auth/providers/google";
 // import FacebookProvider from "next-auth/providers/facebook";
 
-import { db } from '@cps/server/db';
 import { env } from '@cps/env';
+import { db } from '@cps/server/db';
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -52,11 +52,11 @@ export const authConfig: NextAuthConfig = {
      */
   ],
   adapter: PrismaAdapter(db),
-  
+
   session: {
-    strategy: "database",
+    strategy: 'database',
     // use validation environment variables
-    maxAge: env.NEXTAUTH_SESSION_MAX_AGE, 
+    maxAge: env.NEXTAUTH_SESSION_MAX_AGE,
     updateAge: env.NEXTAUTH_SESSION_UPDATE_AGE,
   },
 

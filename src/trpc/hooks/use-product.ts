@@ -2,7 +2,9 @@ import { trpc } from '../react';
 
 // Hook to fetch a single product by ID
 export const useProduct = (id: string) => {
-  const { data, error, isLoading } = trpc.product.getProductById.useQuery({ id });
+  const { data, error, isLoading } = trpc.product.getProductById.useQuery({
+    id,
+  });
 
   if (isLoading) {
     return { data: null, error: null, isLoading };
@@ -28,17 +30,21 @@ type UseAllProduct = {
 
 // Hook to fetch all products
 export const useAllProducts = ({
-                                 page = 1,
-                                 limit = 10,
-                                 stocks = false, prices = false, images = false, variants = false
-                               }: UseAllProduct = {}) => {
-
+  page = 1,
+  limit = 10,
+  stocks = false,
+  prices = false,
+  images = false,
+  variants = false,
+}: UseAllProduct = {}) => {
   return trpc.product.getAllProducts.useQuery({
-    page, limit, include: {
+    page,
+    limit,
+    include: {
       stocks,
       prices,
       images,
-      variants
-    }
+      variants,
+    },
   });
 };

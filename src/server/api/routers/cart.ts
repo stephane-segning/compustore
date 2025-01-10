@@ -1,6 +1,6 @@
-import { createTRPCRouter, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '../../db';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 const CartItemSchema = z.object({
   productId: z.string(),
@@ -26,10 +26,12 @@ export const cart = createTRPCRouter({
       });
     }),
   addToCart: publicProcedure
-    .input(z.object({
-      productId: z.string(),
-      quantity: z.number().min(1),
-    }))
+    .input(
+      z.object({
+        productId: z.string(),
+        quantity: z.number().min(1),
+      }),
+    )
     .mutation(async ({ input, ctx }) => {
       const { productId, quantity } = input;
 
@@ -82,9 +84,12 @@ export const cart = createTRPCRouter({
     }),
 
   updateCart: publicProcedure
-    .input(z.object({
-      itemId: z.string(), quantity: z.number().min(1),
-    }))
+    .input(
+      z.object({
+        itemId: z.string(),
+        quantity: z.number().min(1),
+      }),
+    )
     .mutation(async ({ input, ctx }) => {
       const { itemId, quantity } = input;
 

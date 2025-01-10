@@ -1,10 +1,10 @@
 /* Filter Component Styles */
 .filter-component {
-  @apply text-black space-y-4;
+  @apply space-y-4 text-black;
 }
 
 .filter-component h2 {
-  @apply text-xl font-semibold mb-0.5 text-black;
+  @apply mb-0.5 text-xl font-semibold text-black;
 }
 
 .dropdown {
@@ -12,23 +12,23 @@
 }
 
 .dropdown-toggle {
-  @apply bg-primary text-white px-4 py-2 rounded-md flex justify-between items-center w-full font-medium shadow hover:bg-primary-light transition;
+  @apply flex w-full items-center justify-between rounded-md bg-primary px-4 py-2 font-medium text-white shadow transition hover:bg-primary-light;
 }
 
-.dropdown-toggle[aria-expanded="true"] {
+.dropdown-toggle[aria-expanded='true'] {
   @apply rounded-b-none;
 }
 
 .filter-container {
-  @apply bg-white text-black border rounded-b-md shadow-md p-4 mt-[-1px] space-y-3 w-full flex flex-col;
+  @apply mt-[-1px] flex w-full flex-col space-y-3 rounded-b-md border bg-white p-4 text-black shadow-md;
 }
 
 .filter-option {
-  @apply flex items-center space-x-10 cursor-pointer;
+  @apply flex cursor-pointer items-center space-x-10;
 }
 
-.filter-option input[type="checkbox"] {
-  @apply w-4 h-4 text-accent focus:ring-accent border-b-blue-950 rounded mr-3;
+.filter-option input[type='checkbox'] {
+  @apply mr-3 h-4 w-4 rounded border-b-blue-950 text-accent focus:ring-accent;
 }
 
 .filter-option label {

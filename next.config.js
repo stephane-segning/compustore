@@ -15,6 +15,10 @@ const config = {
         protocol: 'https',
         hostname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 's3.ssegning.me',
+      },
     ],
   },
 };

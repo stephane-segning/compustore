@@ -1,4 +1,4 @@
-import { sanitizeProductData } from "../sanitize";
+import { sanitizeProductData } from '../sanitize';
 
 test('sanitizeProductData removes harmful scripts and keeps allowed content', () => {
   const product = {
@@ -9,8 +9,8 @@ test('sanitizeProductData removes harmful scripts and keeps allowed content', ()
   const sanitizedProduct = sanitizeProductData(product);
 
   // Expect the name to have no script tags or their content
-  expect(sanitizedProduct.name).toBe('cool product'); 
+  expect(sanitizedProduct.name).toBe('cool product');
 
   // Expect the description to retain allowed tags but remove <script>
-  expect(sanitizedProduct.description).toBe('<b>This is a product!</b>'); 
+  expect(sanitizedProduct.description).toBe('<b>This is a product!</b>');
 });

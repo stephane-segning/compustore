@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '../trpc';
-import { db } from '../../db';
 import { TRPCError } from '@trpc/server';
 import DOMPurify from 'dompurify';
+import { z } from 'zod';
+import { db } from '../../db';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 // Enhanced sanitizeHTML function
 export const sanitizeHTML = (html: string) => {
@@ -17,7 +17,7 @@ export const productRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().cuid(), // Validate that the ID is a valid CUID
-      })
+      }),
     )
     .query(async ({ input }) => {
       const product = await db.product.findUnique({
@@ -59,7 +59,7 @@ export const productRouter = createTRPCRouter({
             })
             .optional(), // Custom includes
         })
-        .optional() // Make the entire input optional
+        .optional(), // Make the entire input optional
     )
     .query(async ({ input }) => {
       // Extract input values or apply defaults
