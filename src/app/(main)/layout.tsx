@@ -1,8 +1,7 @@
 import '@cps/styles/globals.scss';
-
+import Navbar from '@cps/components/layout/navbar';
+import Footer from '@cps/components/layout/footer';
 import { type Metadata } from 'next';
-
-import { TRPCReactProvider } from '@cps/trpc/react';
 
 export const metadata: Metadata = {
   title: 'Create T3 App',
@@ -21,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
+        <Navbar/>
         {children}
+        <Footer/>
       </body>
     </html>
   );
