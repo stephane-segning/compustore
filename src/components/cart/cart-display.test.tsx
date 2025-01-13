@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import CartDisplay from './cart-display';
 import { useCart } from '@cps/trpc/hooks/use-cart';
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import React from 'react';
+import CartDisplay from './cart-display';
 
 // Mock useCart hook
 jest.mock('@cps/trpc/hooks/use-cart', () => ({
@@ -10,9 +10,12 @@ jest.mock('@cps/trpc/hooks/use-cart', () => ({
 }));
 
 jest.mock('@cps/components/button', () => {
-  return ({ children, ...props }: React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>) => (
-    <button {...props}>{children}</button>
-  );
+  return ({
+    children,
+    ...props
+  }: React.PropsWithChildren<
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+  >) => <button {...props}>{children}</button>;
 });
 
 describe('CartDisplay Component', () => {
@@ -25,7 +28,7 @@ describe('CartDisplay Component', () => {
   it('displays loading state when isLoading is true', () => {
     mockUseCart.mockReturnValue({ isLoading: true });
 
-    render(<CartDisplay userId="123" username="testuser" />);
+    render(<CartDisplay userId='123' username='testuser' />);
 
     expect(screen.getByText(/loading cart/i)).toBeInTheDocument();
   });
@@ -33,7 +36,7 @@ describe('CartDisplay Component', () => {
   it('displays empty cart message when cart is empty', () => {
     mockUseCart.mockReturnValue({ isLoading: false, cart: { items: [] } });
 
-    render(<CartDisplay userId="123" username="testuser" />);
+    render(<CartDisplay userId='123' username='testuser' />);
 
     expect(screen.getByText(/your cart is empty/i)).toBeInTheDocument();
   });
@@ -52,7 +55,7 @@ describe('CartDisplay Component', () => {
       updateCartItemQuantity: jest.fn(),
     });
 
-    render(<CartDisplay userId="123" username="testuser" />);
+    render(<CartDisplay userId='123' username='testuser' />);
 
     // Check for product names
     expect(screen.getByText('Product A')).toBeInTheDocument();
@@ -66,11 +69,15 @@ describe('CartDisplay Component', () => {
     const updateCartItemQuantity = jest.fn();
     mockUseCart.mockReturnValue({
       isLoading: false,
-      cart: { items: [{ id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 }] },
+      cart: {
+        items: [
+          { id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 },
+        ],
+      },
       updateCartItemQuantity,
     });
 
-    render(<CartDisplay userId="123" username="testuser" />);
+    render(<CartDisplay userId='123' username='testuser' />);
 
     fireEvent.change(screen.getByDisplayValue('2'), { target: { value: '3' } });
     fireEvent.click(screen.getByText(/update/i));
@@ -82,11 +89,15 @@ describe('CartDisplay Component', () => {
     const removeFromCart = jest.fn();
     mockUseCart.mockReturnValue({
       isLoading: false,
-      cart: { items: [{ id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 }] },
+      cart: {
+        items: [
+          { id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 },
+        ],
+      },
       removeFromCart,
     });
 
-    render(<CartDisplay userId="123" username="testuser" />);
+    render(<CartDisplay userId='123' username='testuser' />);
 
     fireEvent.click(screen.getByText(/remove/i));
     expect(removeFromCart).toHaveBeenCalledWith('1');
@@ -96,11 +107,15 @@ describe('CartDisplay Component', () => {
     const clearCart = jest.fn();
     mockUseCart.mockReturnValue({
       isLoading: false,
-      cart: { items: [{ id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 }] },
+      cart: {
+        items: [
+          { id: '1', product: { name: 'Product A' }, price: 10, quantity: 2 },
+        ],
+      },
       clearCart,
     });
 
-    render(<CartDisplay userId="123" username="testuser" />);
+    render(<CartDisplay userId='123' username='testuser' />);
 
     fireEvent.click(screen.getByTestId('clear-cart-button'));
     expect(clearCart).toHaveBeenCalled();

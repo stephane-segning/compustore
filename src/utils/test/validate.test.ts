@@ -9,10 +9,19 @@ test('validateProductData fails for missing fields', () => {
     expect.arrayContaining([
       expect.objectContaining({ path: ['id'], message: 'ID is required' }),
       expect.objectContaining({ path: ['name'], message: 'Name is required' }),
-      expect.objectContaining({ path: ['prices'], message: 'Prices are required' }),
-      expect.objectContaining({ path: ['images'], message: 'Images are required' }),
-      expect.objectContaining({ path: ['description'], message: 'Description is required' }), 
-    ])
+      expect.objectContaining({
+        path: ['prices'],
+        message: 'Prices are required',
+      }),
+      expect.objectContaining({
+        path: ['images'],
+        message: 'Images are required',
+      }),
+      expect.objectContaining({
+        path: ['description'],
+        message: 'Description is required',
+      }),
+    ]),
   );
 });
 

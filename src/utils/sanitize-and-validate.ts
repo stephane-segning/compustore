@@ -11,7 +11,7 @@ export const sanitizeAndValidateProductData = (product: {
   // Sanitize the product data
   const sanitizedProduct = sanitizeProductData({
     name: product.name,
-    description: product.description
+    description: product.description,
   });
 
   // Combine sanitized fields with the rest of the product data

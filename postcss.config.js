@@ -6,8 +6,8 @@ const config = {
   plugins: {
     cssnano: {},
     autoprefixer: {},
-    tailwindcss: {}
-  }
+    tailwindcss: {},
+  },
 };
 
 export default config;

@@ -1,6 +1,7 @@
 # Stripe Integration Demo Project
 
 ### Project Overview
+
 The Stripe Integration Demo Project is a hands-on initiative designed to enhance the team’s expertise in Stripe's API and infrastructure. By building a full-stack application from scratch, the team aims to deepen their understanding of both the front-end and back-end components of Stripe-based systems. This project will also act as a foundational platform for the upcoming Payment Processor Project, which will be developed for commercial use.
 
 ### Key Objectives:
@@ -9,7 +10,8 @@ Build a full-stack demo application with Stripe integration using Next.js.
 Develop a comprehensive understanding of the technologies involved in Stripe projects, such as payment processing, subscriptions, and invoice management.
 Prepare for future Stripe projects by mastering relevant concepts and components.
 
-### Project Goals 
+### Project Goals
+
 Technical Proficiency: At the end of the project, each team member should be able to explain the technologies implemented, including the following components:
 
 Front-end and back-end integration using Next.js.
@@ -23,6 +25,7 @@ Invoice and subscription management.
 Deployment and Maintenance: Develop strategies for deployment and ongoing maintenance of the application.
 
 ### Tech Stack
+
 The project will leverage the following technologies:
 
 Next.js: Chosen for both front-end and back-end development due to its popularity and recent adoption in Stripe projects.
@@ -66,12 +69,14 @@ Abstract Classes and Plugins: We will utilize abstract classes and plugins for c
 Progressive Web App (PWA): Research has been conducted on how to implement PWA features, including triggering installations.
 
 ### Development Methodology
+
 For this demo project, we are following a collaborative workflow to ensure consistent progress. Additionally:
 
 Scrum Framework: We will implement Scrum practices, including a monthly Spring Demo to present progress and gather feedback.
 Kanban Board: To track tasks and maintain progress transparency. Managed by @Stephane Segning Lambou and @Armand Meppa.
 
 ### Diagrams and Visual Documentation
+
 To aid in understanding and clarity, we will be creating and reviewing the following diagrams:
 
 Project Overview Diagram: Visual representation of the overall project structure and workflows.
@@ -83,6 +88,7 @@ Project Overview Diagram: Visual representation of the overall project structure
 ![alt text](Images/image-5.png)
 
 UML Sequence Diagrams: Detailed sequence diagrams for critical components, such as "Subscribe to Product License" and "Manage Subscriptions."
+
 ```mermaid
 sequenceDiagram
     title Full test search
@@ -93,6 +99,7 @@ sequenceDiagram
     DB-->>Backend: hits
     Backend-->>Frontend: Hits
 ```
+
 ```mermaid
 sequenceDiagram
     title See product discription
@@ -104,6 +111,7 @@ sequenceDiagram
     Backend-->>Frontend: product
     Frontend->>Frontend: Display the product
 ```
+
 ```mermaid
 sequenceDiagram
     title Add to cart
@@ -114,6 +122,7 @@ sequenceDiagram
     Backend->>Backend: addProductToCart(cartId, productId)
     Backend-->>Frontend: card
 ```
+
 ```mermaid
 sequenceDiagram
     title Download digital product
@@ -132,6 +141,7 @@ sequenceDiagram
     Backend-->>Frontend: link # https://cdn.gis-stripe.cm/download/products/678-23-24324-2343.png
     Frontend->>Web: open link
 ```
+
 ```mermaid
 sequenceDiagram
     title Buy a product
@@ -177,6 +187,7 @@ sequenceDiagram
 
     Frontend->>Frontend: Show ok page
 ```
+
 ```mermaid
 sequenceDiagram
 title Subscribe to a product license
@@ -190,6 +201,7 @@ Server ->> DB: Save Subscription and Payment Details
 Server -->> Client: Subscription Success with License
 Client -->> User: Display Subscription Confirmation
 ```
+
 ```mermaid
 sequenceDiagram
 title Manage subscription
@@ -206,8 +218,11 @@ Backend ->> Database: Update subscription status to "canceled"
 Backend -->> WebApp: Notify about subscription cancellation
 WebApp -->> Customer: Confirmation of subscription cancellation
 ```
+
  
+
 ### Research & Additional Tools
+
 React Admin (RA):
 
 Setup: Establish connection with the backend and authentication using NextAuth.js.
@@ -231,6 +246,8 @@ Design Tools: We had an introductory session on Figma for UI design exploration 
 - [Typeorm](https://typeorm.io/)
 - [tRPC](https://trpc.io/)
 - [creatContext](https://react.dev/reference/react/createContext)
+
 ### Pending Topics
+
 Project Name: The name for this project is still to be decided.
 Deployment Models and Maintenance: Final decisions on deployment and long-term maintenance are yet to be made.

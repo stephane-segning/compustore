@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '../trpc';
 import { db } from '../../db';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const categoryRouter = createTRPCRouter({
   // Fetch all categories
@@ -13,7 +13,7 @@ export const categoryRouter = createTRPCRouter({
     .input(
       z.object({
         categoryId: z.number(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       return db.product.findMany({
@@ -35,7 +35,7 @@ export const categoryRouter = createTRPCRouter({
     .input(
       z.object({
         ids: z.array(z.number()),
-      })
+      }),
     )
     .query(async ({ input }) => {
       return db.category.findMany({

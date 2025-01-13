@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface QuantityInputProps {
   value: number;
@@ -8,11 +8,11 @@ interface QuantityInputProps {
 const QuantityInput: React.FC<QuantityInputProps> = ({ value, onChange }) => {
   return (
     <input
-      type="number"
-      min="1"
+      type='number'
+      min='1'
       value={value}
       onChange={(e) => onChange(parseInt(e.target.value, 10))}
-      className="border border-neutral-300 p-2 rounded w-20"
+      className='border-neutral-300 w-20 rounded border p-2'
     />
   );
 };

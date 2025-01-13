@@ -1,15 +1,20 @@
 'use client';
-import { api } from '../react';
+import {
+  clearCartCookie,
+  getCartCookie,
+  setCartCookie,
+} from '@cps/utils/cart-cookie';
 import { useEffect, useState } from 'react';
-import { clearCartCookie, getCartCookie, setCartCookie } from '@cps/utils/cart-cookie';
+import { api } from '../react';
 
 export const useCart = (userId: string | undefined) => {
   const [cartId, setCartId] = useState<string | undefined>(getCartCookie());
 
-  const { data, refetch: refetchCartFromApi, isPending } = api.cart.getCart.useQuery(
-    { userId: userId },
-    { enabled: !!userId },
-  );
+  const {
+    data,
+    refetch: refetchCartFromApi,
+    isPending,
+  } = api.cart.getCart.useQuery({ userId: userId }, { enabled: !!userId });
 
   useEffect(() => {
     if (cartId) {
@@ -41,11 +46,20 @@ export const useCart = (userId: string | undefined) => {
 
   return {
     cart: data,
-    isLoading: Boolean(isPending || addToCart.isPending || updateCart.isPending || removeFromCart.isPending || clearCart.isPending),
-    addToCart: (productId: string, quantity: number) => addToCart.mutate({ productId, quantity }),
-    updateCart: (itemId: string, quantity: number) => updateCart.mutate({ itemId, quantity }),
+    isLoading: Boolean(
+      isPending ||
+        addToCart.isPending ||
+        updateCart.isPending ||
+        removeFromCart.isPending ||
+        clearCart.isPending,
+    ),
+    addToCart: (productId: string, quantity: number) =>
+      addToCart.mutate({ productId, quantity }),
+    updateCart: (itemId: string, quantity: number) =>
+      updateCart.mutate({ itemId, quantity }),
     removeFromCart: (itemId: string) => removeFromCart.mutate({ itemId }),
-    updateCartItemQuantity: (itemId: string, quantity: number) => updateCart.mutate({ itemId, quantity }),
+    updateCartItemQuantity: (itemId: string, quantity: number) =>
+      updateCart.mutate({ itemId, quantity }),
     clearCart: () => clearCart.mutate({ userId }),
     refetchCartFromApi,
   };

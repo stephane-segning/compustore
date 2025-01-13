@@ -1,5 +1,5 @@
-import React from "react";
-import Image from "next/image";
+import Image from 'next/image';
+import React from 'react';
 
 interface ImageProps {
   src: string;
@@ -7,11 +7,15 @@ interface ImageProps {
 }
 
 const LoneImage: React.FC<ImageProps> = ({ src, alt }) => {
-  return <Image
-    src={src} alt={alt}
-    width={70}
-    height={300}
-    className="w-64 h-auto object-contain" />;
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={70}
+      height={300}
+      className='h-auto w-64 object-contain'
+    />
+  );
 };
 
 export default LoneImage;

@@ -1,13 +1,12 @@
-import React from 'react';
+import { Image } from '@prisma/client';
 import { FileInput, type FileInputProps } from 'react-admin';
 import { useController } from 'react-hook-form';
 import { uploadFile } from '../upload';
-import { Image } from '@prisma/client';
 
 export default function AutoUploadImageInput({
-                                               source,
-                                               ...props
-                                             }: FileInputProps) {
+  source,
+  ...props
+}: FileInputProps) {
   const { field } = useController({ name: source });
   const { mutate } = uploadFile();
 
@@ -21,22 +20,21 @@ export default function AutoUploadImageInput({
         field.onChange({
           ...(field.value || {}),
           url: publicUrl,
-          title: file.name
+          title: file.name,
         } as Image);
       } catch (error) {
         console.error('Error uploading file:', error);
       }
-
     } else if (fileOrFiles instanceof Array) {
       const files = fileOrFiles as File[];
 
       const promises = files.map(async (file, idx) => {
         const { publicUrl } = await mutate(file);
-        return ({
+        return {
           ...(field.value?.[idx] || {}),
           url: publicUrl,
-          title: file.name
-        } as Image);
+          title: file.name,
+        } as Image;
       });
 
       const results = await Promise.all(promises);
@@ -51,8 +49,8 @@ export default function AutoUploadImageInput({
       {...props}
       onChange={handleFileChange}
       source={source}
-      labelMultiple="ra.input.image.upload_several"
-      labelSingle="ra.input.image.upload_single"
+      labelMultiple='ra.input.image.upload_several'
+      labelSingle='ra.input.image.upload_single'
     />
   );
-};
+}

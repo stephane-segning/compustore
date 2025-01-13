@@ -87,25 +87,31 @@ describe('useCart hook', () => {
   it('should update item quantity in the cart', async () => {
     const { result } = renderHook(() => useCart(userId));
     act(() => result.current.updateCart('item-1', 3));
-    expect(mockedApi.cart.updateCart.useMutation().mutate).toHaveBeenCalledWith({
-      itemId: 'item-1',
-      quantity: 3,
-    });
+    expect(mockedApi.cart.updateCart.useMutation().mutate).toHaveBeenCalledWith(
+      {
+        itemId: 'item-1',
+        quantity: 3,
+      },
+    );
   });
 
   it('should update cart item quantity using updateCartItemQuantity', async () => {
     const { result } = renderHook(() => useCart(userId));
     act(() => result.current.updateCartItemQuantity('item-2', 4));
-    expect(mockedApi.cart.updateCart.useMutation().mutate).toHaveBeenCalledWith({
-      itemId: 'item-2',
-      quantity: 4,
-    });
+    expect(mockedApi.cart.updateCart.useMutation().mutate).toHaveBeenCalledWith(
+      {
+        itemId: 'item-2',
+        quantity: 4,
+      },
+    );
   });
 
   it('should remove an item from the cart', async () => {
     const { result } = renderHook(() => useCart(userId));
     act(() => result.current.removeFromCart('item-1'));
-    expect(mockedApi.cart.removeFromCart.useMutation().mutate).toHaveBeenCalledWith({
+    expect(
+      mockedApi.cart.removeFromCart.useMutation().mutate,
+    ).toHaveBeenCalledWith({
       itemId: 'item-1',
     });
   });

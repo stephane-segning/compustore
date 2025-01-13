@@ -1,17 +1,20 @@
-import { sanitizeAndValidateProductData } from '../sanitize-and-validate';
 import { sanitizeProductData } from '../sanitize';
+import { sanitizeAndValidateProductData } from '../sanitize-and-validate';
 
-// testing functions for product data sanitization and validation 
+// testing functions for product data sanitization and validation
 test('sanitizeAndValidateProductData works correctly', () => {
   const product = {
     id: '123',
     name: '<script>alert("XSS")</script>Cool Product',
     description: '<b>This is a great product!</b>',
     prices: [19.99, 29.99],
-    images: ['https://example.com/image1.jpg', 'https://example.com/image2.jpg'],
+    images: [
+      'https://example.com/image1.jpg',
+      'https://example.com/image2.jpg',
+    ],
   };
 
-  const sanitize = sanitizeProductData(product)
+  const sanitize = sanitizeProductData(product);
   const result = sanitizeAndValidateProductData(product);
 
   expect(result).not.toBeNull(); // Should pass sanitization and validation

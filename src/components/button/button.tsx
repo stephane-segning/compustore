@@ -1,6 +1,6 @@
 import React from 'react';
-import './button.scss';
 import { twMerge } from 'tailwind-merge';
+import './button.scss';
 
 export type ButtonProps<T extends React.ElementType> =
   React.HTMLAttributes<T> & {
@@ -24,7 +24,7 @@ export default function Button<T extends React.ElementType>({
     <Component
       {...props}
       className={twMerge(
-        'px-4 py-2 transition ease-in-out hover:scale-110 overflow-clip text-ellipsis text-nowrap',
+        'overflow-clip text-ellipsis text-nowrap px-4 py-2 transition ease-in-out hover:scale-110',
         shape === 'circle' && 'rounded-full',
         shape === 'rounded' && 'rounded-lg',
         shape === 'square' && 'rounded-[0.1rem]',
@@ -36,9 +36,9 @@ export default function Button<T extends React.ElementType>({
         size === 'sm' && 'text-sm',
         size === 'md' && 'text-base',
         size === 'lg' && 'text-lg',
-        shape === 'circle' && size === 'sm' && 'w-10 h-10 px-0',
-        shape === 'circle' && size === 'md' && 'w-12 h-12 px-1',
-        shape === 'circle' && size === 'lg' && 'w-16 h-16 px-2',
+        shape === 'circle' && size === 'sm' && 'h-10 w-10 px-0',
+        shape === 'circle' && size === 'md' && 'h-12 w-12 px-1',
+        shape === 'circle' && size === 'lg' && 'h-16 w-16 px-2',
         flat && 'shadow-none',
         !flat && 'shadow-md',
         className,

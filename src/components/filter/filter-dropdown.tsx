@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from "react";
-import Button from "@cps/components/button";
+import Button from '@cps/components/button';
+import React, { useState } from 'react';
 
 interface DropdownProps {
   title: string;
@@ -16,15 +16,14 @@ const Dropdown: React.FC<DropdownProps> = ({ title, children }) => {
   };
 
   return (
-    <div className="dropdown">
+    <div className='dropdown'>
       <Button
-        className="dropdown-button"
+        className='dropdown-button'
         onClick={toggleDropdown}
-        aria-expanded={isOpen}
-      >
-        {title} {isOpen ? "▲" : "▼"}
+        aria-expanded={isOpen}>
+        {title} {isOpen ? '▲' : '▼'}
       </Button>
-      {isOpen && <div className="dropdown-content">{children}</div>}
+      {isOpen && <div className='dropdown-content'>{children}</div>}
     </div>
   );
 };

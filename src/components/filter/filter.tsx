@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import './filter.scss'; 
 import Button from '@cps/components/button';
+import React, { useState } from 'react';
+import './filter.scss';
 
 type FilterOption = {
   label: string;
@@ -16,7 +16,8 @@ const initialCategories: FilterOption[] = [
 ];
 
 const Filter: React.FC = () => {
-  const [categories, setCategories] = useState<FilterOption[]>(initialCategories);
+  const [categories, setCategories] =
+    useState<FilterOption[]>(initialCategories);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleCategory = (label: string) => {
@@ -24,8 +25,8 @@ const Filter: React.FC = () => {
       prevCategories.map((category) =>
         category.label === label
           ? { ...category, checked: !category.checked }
-          : category
-      )
+          : category,
+      ),
     );
   };
 
@@ -34,9 +35,9 @@ const Filter: React.FC = () => {
   };
 
   return (
-    <div className="filter-component">
+    <div className='filter-component'>
       <h2>What are you looking for?</h2>
-      <div className="dropdown">
+      <div className='dropdown'>
         <Button
           shape='rounded'
           color='primary'
@@ -45,11 +46,11 @@ const Filter: React.FC = () => {
           Filter by Category {isDropdownOpen ? '▲' : '▼'}
         </Button>
         {isDropdownOpen && (
-          <div className="filter-container">
+          <div className='filter-container'>
             {categories.map((category) => (
-              <label key={category.label} className="filter-option">
+              <label key={category.label} className='filter-option'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={category.checked}
                   onChange={() => toggleCategory(category.label)}
                 />
