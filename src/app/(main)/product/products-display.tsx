@@ -7,24 +7,25 @@ import DOMPurify from 'dompurify';
 import Image from 'next/image';
 
 const ProductsDisplay: React.FC = () => {
-  const { data: rawProducts, isLoading, error, isError } = useAllProducts();
+  const { data: rawProducts, isLoading, error, isError } = useAllProducts({ thumbnail: true, prices: true });
 
   if (isLoading) {
     return <div className="text-center py-10">Loading products...</div>;
   }
 
   if (isError) {
-    return <div className="text-center py-10 text-red-500">Error: {error?.message}</div>;
+    return <div className="text-center py-10 text-danger">Error: {error?.message}</div>;
   }
 
+  // O(p) = n ~> 10p = 10n ~> O(n)
   const products = rawProducts?.products?.map((product) => ({
     id: product.id,
     title: DOMPurify.sanitize(product.name),
-    imageUrl: product.images?.[0]?.url || '/placeholder.png', // Fallback if no image
+    imageUrl: product.thumbnail?.url || '/placeholder.png', // Fallback if no image
     price: product.prices?.[0]
       ? `${(product.prices[0].price / 100).toFixed(1)} ${product.prices[0].currency}`
       : 'Price not available',
-    stock: product.stocks?.[0]?.stock || 'Stock not available'
+    stock: product.stocks?.[0]?.stock || 'Stock not available',
   }));
 
   // Get the first three products for the hero section
