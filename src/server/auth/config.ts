@@ -60,6 +60,33 @@ export const authConfig: NextAuthConfig = {
     updateAge: env.NEXTAUTH_SESSION_UPDATE_AGE,
   },
 
+  cookies: {
+    sessionToken: {
+      options: {
+         httpOnly: true,
+         sameSite: 'lax',
+         path: '/',
+         secure: env.NODE_ENV === 'production',
+      }
+    },
+    callbackUrl: {
+      name: `__Secure-next-auth.callback-url`,
+      options: {
+        sameSite: "lax",
+        path: "/",
+        secure: env.NODE_ENV === "production",
+      },
+    },
+    csrfToken: {
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: env.NODE_ENV === "production",
+      },
+    },
+  },
+
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
