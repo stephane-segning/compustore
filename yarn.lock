@@ -2420,10 +2420,10 @@
     "@storybook/global" "^5.0.0"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-themes@^8.4.2":
-  version "8.4.5"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-themes/-/addon-themes-8.4.5.tgz#fad12e7ff864f832a04bb070c299c3f309a736e6"
-  integrity sha512-4ZheodvdAjAXbzx3HLmPxin5ULh1lPp7QH8Yi8SijRcreUYFiKvPfaTvR0pEcaFppwPXu1gVQlud5GLMTLEQgQ==
+"@storybook/addon-themes@^8.4.7":
+  version "8.4.7"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-themes/-/addon-themes-8.4.7.tgz#563983b12f5c7ae82a0934f9895a24e36dc1666a"
+  integrity sha512-MZa3eWTz0b3BQvF71WqLqvEYzDtbMhQx1IIluWBMMGzJ4sWBzLX85LoNMUlHsNd4EhEmAZ1xQQFIJpDWTBx0nQ==
   dependencies:
     ts-dedent "^2.0.0"
 
