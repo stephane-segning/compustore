@@ -43,7 +43,7 @@ jobs:
       - name: Add coverage to docs
         run: |
           mkdir -p site/coverage
-          cp -r coverage/lcov-report/* site/coverage
+          mv coverage/lcov-report site/coverage
       - name: Build Storybook
         run: |
           cp .env.example .env
