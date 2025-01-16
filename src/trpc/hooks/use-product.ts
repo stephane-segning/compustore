@@ -24,13 +24,14 @@ type UseAllProduct = {
   prices?: boolean;
   images?: boolean;
   variants?: boolean;
+  thumbnail?: boolean;
 };
 
 // Hook to fetch all products
 export const useAllProducts = ({
                                  page = 1,
                                  limit = 10,
-                                 stocks = false, prices = false, images = false, variants = false
+                                 stocks = false, prices = false, images = false, variants = false, thumbnail = false,
                                }: UseAllProduct = {}) => {
 
   return trpc.product.getAllProducts.useQuery({
@@ -38,7 +39,8 @@ export const useAllProducts = ({
       stocks,
       prices,
       images,
-      variants
-    }
+      variants,
+      thumbnail,
+    },
   });
 };
