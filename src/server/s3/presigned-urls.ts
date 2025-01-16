@@ -3,16 +3,18 @@ import { client } from './client';
 import { env } from '@cps/env';
 
 export async function createPresignedPostUrl(filename: string) {
-  const objectName = `images/${createId()}-${filename}`;
-  const url = await client.presignedPutObject(env.S3_BUCKET, objectName, 3600);
-  const publicUrl = `${getBasePublicUrl()}/${env.S3_BUCKET}/${objectName}`;
-  return { url, publicUrl };
-}
+  try {
+    const objectName = `images/${createId()}-${filename}`;
 
-export function getBasePublicUrl() {
-  if (process.env.S3_CDN_URL) {
-    return env.S3_CDN_URL;
+    const url = await client.presignedPutObject(env.AWS_BUCKET, objectName, 3600);  
+
+    const getBasePublicUrl = `${env.S3_SCHEME}://${env.AWS_ENDPOINT}`;
+
+    const publicUrl = `${getBasePublicUrl}/${env.AWS_BUCKET}/${objectName}`;
+
+    return { url, publicUrl }; 
+  } catch (error) {
+    console.error("Error generating presigned URL:", error);
+    throw new Error("Failed to generate presigned URL.");
   }
-
-  return `${env.S3_SCHEME}://${env.S3_ENDPOINT}:${env.S3_PORT}`;
 }

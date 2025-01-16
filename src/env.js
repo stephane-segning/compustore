@@ -25,6 +25,12 @@ export const env = createEnv({
     S3_BUCKET: z.string(),
     S3_CDN_URL: z.string(),
 
+    AWS_BUCKET: z.string(),
+    AWS_REGION: z.string(),
+    AWS_ENDPOINT: z.string(),
+    AWS_ACCESS_KEY_ID: z.string(),
+    AWS_SECRET_ACCESS_KEY: z.string(),
+
     // Add session environment variables
     NEXTAUTH_SESSION_MAX_AGE: z.string().transform(Number),
     NEXTAUTH_SESSION_UPDATE_AGE: z.string().transform(Number),
@@ -56,6 +62,12 @@ export const env = createEnv({
     S3_SCHEME: process.env.S3_SCHEME,
     S3_BUCKET: process.env.S3_BUCKET,
     S3_CDN_URL: process.env.S3_CDN_URL,
+
+    AWS_BUCKET: process.env.AWS_BUCKET,
+    AWS_REGION: process.env.AWS_REGION,
+    AWS_ENDPOINT: process.env.AWS_ENDPOINT,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
 
     NEXTAUTH_SESSION_MAX_AGE: process.env.NEXTAUTH_SESSION_MAX_AGE,
     NEXTAUTH_SESSION_UPDATE_AGE: process.env.NEXTAUTH_SESSION_UPDATE_AGE,
