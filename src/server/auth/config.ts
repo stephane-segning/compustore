@@ -88,12 +88,17 @@ export const authConfig: NextAuthConfig = {
   },
 
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as { role?: string }).role || 'USER'; // Attach role to JWT
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.role = token.role as 'ADMIN' | 'USER'; // Attach role to session
+      }
+      return session;
+    },
   },
-};
+  }
