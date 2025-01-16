@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "serve": "serve coverage/lcov-report",
     "vercel-build": "yarn db:migrate && yarn build",
     "build": "next build",
     "check": "next lint && tsc --noEmit",
