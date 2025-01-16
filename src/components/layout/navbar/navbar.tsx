@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Button from '@cps/components/button';
+import Link from 'next/link';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,6 +38,11 @@ const Navbar: React.FC = () => {
         <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
           A
         </Button>
+        <Link href="/auth/signin">
+          <Button className="px-4 py-2 bg-neutral-light text-dark rounded-md">
+            Sign In/ Sign Up
+          </Button>
+        </Link>
       </div>
 
       {/* Hamburger menu for small screens */}
@@ -81,6 +87,7 @@ const Navbar: React.FC = () => {
               <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
                 A
               </Button>
+            
             </div>
           </div>
         </div>

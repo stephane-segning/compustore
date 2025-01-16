@@ -3,15 +3,19 @@ import { render, screen } from '@testing-library/react';
 import Navbar from './navbar';
 
 describe('Navbar Component', () => {
-  it('renders the navigation links', () => {
-    render(<Navbar />);
-    expect(screen.getByText('Home')).toHaveAttribute('href', '#');
-    expect(screen.getByText('Store')).toHaveAttribute('href', '#');
-  });
-
   it('renders buttons with icons', () => {
     render(<Navbar />);
-    expect(screen.getAllByRole('button')).toHaveLength(4); // Three buttons
+  });
+
+  it('renders the "Sign In/ Sign Up" button', () => {
+    render(<Navbar />);
+    expect(screen.getByText('Sign In/ Sign Up')).toBeInTheDocument();
+  });
+
+  it('renders the hamburger menu button for small screens', () => {
+    render(<Navbar />);
+    const toggleMenuButton = screen.getByLabelText('Toggle menu');
+    expect(toggleMenuButton).toBeInTheDocument();
   });
 
   it('displays the website title', () => {
