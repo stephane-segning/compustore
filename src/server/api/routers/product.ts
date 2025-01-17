@@ -17,7 +17,7 @@ export const productRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().cuid(), // Validate that the ID is a valid CUID
-      })
+      }),
     )
     .query(async ({ input }) => {
       const product = await db.product.findUnique({
@@ -52,14 +52,15 @@ export const productRouter = createTRPCRouter({
           limit: z.number().min(1).max(30).default(10).optional(), // Default 10 items per page
           include: z
             .object({
-              stocks: z.boolean().optional(),
-              prices: z.boolean().optional(),
-              images: z.boolean().optional(),
-              variants: z.boolean().optional(),
+              thumbnail: z.boolean().optional().default(false),
+              stocks: z.boolean().optional().default(false),
+              prices: z.boolean().optional().default(false),
+              images: z.boolean().optional().default(false),
+              variants: z.boolean().optional().default(false),
             })
             .optional(), // Custom includes
         })
-        .optional() // Make the entire input optional
+        .optional(), // Make the entire input optional
     )
     .query(async ({ input }) => {
       // Extract input values or apply defaults
@@ -73,10 +74,11 @@ export const productRouter = createTRPCRouter({
         skip,
         take: limit,
         include: {
-          stocks: include?.stocks ?? false,
-          prices: include?.prices ?? false,
-          images: include?.images ?? false,
-          variants: include?.variants ?? false,
+          stocks: include?.stocks,
+          prices: include?.prices,
+          images: include?.images,
+          variants: include?.variants,
+          thumbnail: include?.thumbnail,
         },
       });
 
