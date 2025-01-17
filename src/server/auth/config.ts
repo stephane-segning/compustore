@@ -1,7 +1,7 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { type DefaultSession, type NextAuthConfig } from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
-// import GithubProvider from "next-auth/providers/github";
+import GithubProvider from "next-auth/providers/github";
 // import GoogleProvider from "next-auth/providers/google";
 // import FacebookProvider from "next-auth/providers/facebook";
 
@@ -40,7 +40,7 @@ export const authConfig: NextAuthConfig = {
     DiscordProvider,
     // GoogleProvider,
     // FacebookProvider,
-    // GithubProvider,
+    GithubProvider,
     /**
      * ...add more providers here.
      *
