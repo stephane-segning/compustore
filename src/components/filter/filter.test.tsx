@@ -2,8 +2,28 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Filter from "./filter";
+import { useAllProducts } from "@cps/trpc/hooks/use-product";
+
+// Mock the `useAllProducts` hook
+jest.mock("@cps/trpc/hooks/use-product", () => ({
+  useAllProducts: jest.fn(() => ({
+    data: {
+      products: [
+        { id: "1", name: "Test Product", description: "Test Description" },
+      ],
+    },
+    isLoading: false,
+    error: null,
+  })),
+}));
+
+   
 
 describe("Filter Component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test("renders the dropdown button", () => {
     render(<Filter />);
     const dropdownButton = screen.getByRole("button", {
@@ -88,4 +108,44 @@ describe("Filter Component", () => {
     const reopenedCheckbox = screen.getByLabelText(/electronics/i);
     expect(reopenedCheckbox).toBeChecked();
   });
+
+  test("displays loading state when fetching products", () => {
+    (useAllProducts as jest.Mock).mockReturnValue({
+      data: null,
+      isLoading: true,
+    });
+
+    render(<Filter />);
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+
+  test("displays products when fetched", () => {
+    (useAllProducts as jest.Mock).mockReturnValue({
+      data: {
+        products: [
+          { id: "1", name: "Product 1", description: "Description 1" },
+          { id: "2", name: "Product 2", description: "Description 2" },
+        ],
+      },
+      isLoading: false,
+    });
+
+    render(<Filter />);
+    expect(screen.getByText("Product 1")).toBeInTheDocument();
+    expect(screen.getByText("Product 2")).toBeInTheDocument();
+  });
+
+  test("displays error message if fetching products fails", async () => {
+    (useAllProducts as jest.Mock).mockReturnValue({
+      data: null,
+      isLoading: false,
+      error: new Error("Failed to fetch products"),
+    });
+  
+    render(<Filter />);
+  
+    // Use `findByText` to handle asynchronous rendering
+    expect(await screen.findByText(/failed to load products/i)).toBeInTheDocument();
+  });
+  
 });
