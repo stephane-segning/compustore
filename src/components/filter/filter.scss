@@ -14,7 +14,7 @@
 }
   
 .dropdown-toggle {
-  @apply bg-primary text-white px-4 py-2 rounded-md flex justify-between items-center w-full font-medium shadow hover:bg-primary-light transition;
+  @apply px-4 py-2 rounded-md flex justify-between items-center w-full font-medium shadow hover:bg-primary-light transition;
 
   @apply sm:px-3 sm:py-1 md:px-4 md:py-2;
 }
@@ -24,7 +24,7 @@
 }
 
 .filter-container {
-  @apply bg-white text-black border rounded-b-md shadow-md p-4 mt-[-1px] space-y-3 flex flex-col;
+  @apply border rounded-b-md shadow-md p-4 mt-[-1px] space-y-3 flex flex-col;
 
  @apply w-full sm:w-[60%] md:w-[60%] lg:w-[38%];
 
@@ -38,7 +38,7 @@
 }
 
 .filter-option input[type="checkbox"] {
-  @apply w-4 h-4 text-accent focus:ring-accent border-b-blue-950 rounded mr-3;
+  @apply w-4 h-4 text-accent focus:ring-accent border-b-primary-light rounded mr-3;
 
   @apply md:w-5 md:h-5;
 }
