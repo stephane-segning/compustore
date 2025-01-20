@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import EmailInput from './email-input';
@@ -58,7 +56,7 @@ const SignInPage = () => {
       {/* Divider */}
       <div className="flex items-center mb-6">
         <div className="flex-1 h-px bg-neutral"></div>
-        <span className="px-3 text-sm text-dark-500">OR</span>
+        <span className="px-3 text-sm ">OR</span>
         <div className="flex-1 h-px bg-neutral"></div>
       </div>
 

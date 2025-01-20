@@ -29,17 +29,29 @@ const Navbar: React.FC = () => {
 
       {/* Actions (buttons) */}
       <div className="hidden md:flex gap-2">
-        <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
+        <Button
+          shape="circle"
+          color="neutral"
+          size="sm"
+          className="flex justify-center items-center">
           T
         </Button>
-        <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
+        <Button
+          shape="circle"
+          color="neutral"
+          size="sm"
+          className="flex justify-center items-center">
           C
         </Button>
-        <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
+        <Button
+          shape="circle" 
+          color="neutral" 
+          size="sm"
+          className="flex justify-center items-center">
           A
         </Button>
         <Link href="/auth/signin">
-          <Button className="px-4 py-2 bg-neutral-light text-dark rounded-md">
+          <Button className="rounded" color="neutral">
             Sign In/ Sign Up
           </Button>
         </Link>
