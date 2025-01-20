@@ -38,16 +38,17 @@ jobs:
         run: |
           yarn
 
+      - name: Set up environment variables
+        run: cp .env.example .env
+
       - name: Run test with coverage
         run: yarn test --coverage
       - name: Add coverage to docs
         run: |
-          cp .env.example .env
           mkdir -p site/coverage
           mv coverage/lcov-report site/coverage
       - name: Build Storybook
         run: |
-          cp .env.example .env
           yarn storybook:build
 
       # Move Storybook to MkDocs site directory
