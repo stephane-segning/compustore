@@ -8,11 +8,15 @@
 }
 
 .dropdown {
-  @apply relative inline-block w-[11%];
-}
+  @apply relative inline-block; 
 
+  @apply sm:w-[80%] md:w-[40%] lg:w-[48%] xl:w-[38%] 2xl:w-[30.5%];
+}
+  
 .dropdown-toggle {
-  @apply bg-primary text-white px-4 py-2 rounded-md flex justify-between items-center w-full font-medium shadow hover:bg-primary-light transition;
+  @apply px-4 py-2 rounded-md flex justify-between items-center w-full font-medium shadow hover:bg-primary-light transition;
+
+  @apply sm:px-3 sm:py-1 md:px-4 md:py-2;
 }
 
 .dropdown-toggle[aria-expanded="true"] {
@@ -20,17 +24,27 @@
 }
 
 .filter-container {
-  @apply bg-white text-black border rounded-b-md shadow-md p-4 mt-[-1px] space-y-3 w-full flex flex-col;
+  @apply border rounded-b-md shadow-md p-4 mt-[-1px] space-y-3 flex flex-col;
+
+ @apply w-full sm:w-[60%] md:w-[60%] lg:w-[38%];
+
+ @apply sm:mx-auto md:ml-0;
 }
 
 .filter-option {
-  @apply flex items-center space-x-10 cursor-pointer;
+  @apply flex items-center space-x-4 cursor-pointer;
+
+  @apply md:space-x-6 lg:space-x-8;
 }
 
 .filter-option input[type="checkbox"] {
-  @apply w-4 h-4 text-accent focus:ring-accent border-b-blue-950 rounded mr-3;
+  @apply w-4 h-4 text-accent focus:ring-accent border-b-primary-light rounded mr-3;
+
+  @apply md:w-5 md:h-5;
 }
 
 .filter-option label {
   @apply text-sm text-black;
+
+  @apply md:text-base lg:text-lg;
 }

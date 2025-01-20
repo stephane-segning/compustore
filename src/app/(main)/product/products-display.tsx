@@ -23,7 +23,7 @@ const ProductsDisplay: React.FC = () => {
     title: DOMPurify.sanitize(product.name),
     imageUrl: product.thumbnail?.url || '/placeholder.png', // Fallback if no image
     price: product.prices?.[0]
-      ? `${(product.prices[0].price / 100).toFixed(1)} ${product.prices[0].currency}`
+      ? `${(product.prices[0].price).toFixed(1)} ${product.prices[0].currency}`
       : 'Price not available',
     stock: product.stocks?.[0]?.stock || 'Stock not available',
   }));

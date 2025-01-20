@@ -18,7 +18,7 @@ const Dropdown: React.FC<DropdownProps> = ({ title, children }) => {
   return (
     <div className="dropdown">
       <Button
-        className="dropdown-button"
+        size="md"
         onClick={toggleDropdown}
         aria-expanded={isOpen}
       >
