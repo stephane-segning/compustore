@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Button from '@cps/components/button';
 import ErrorState from '@cps/components/common/error-state';
