@@ -90,13 +90,25 @@ const Navbar: React.FC = () => {
               Store
             </a>
             <div className="flex gap-2">
-              <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
+              <Button
+                shape="circle"
+                color="neutral"
+                size="sm"
+                className="flex justify-center items-center">
                 T
               </Button>
-              <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
+              <Button
+                shape="circle"
+                color="neutral"
+                size="sm"
+                className="flex justify-center items-center">
                 C
               </Button>
-              <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
+              <Button
+                shape="circle"
+                color="neutral"
+                size="sm"
+                className="flex justify-center items-center">
                 A
               </Button>
             
