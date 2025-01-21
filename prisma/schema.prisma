@@ -262,4 +262,5 @@ enum Role {
   ADMIN
 
   @@map("roles")
+  
 }
