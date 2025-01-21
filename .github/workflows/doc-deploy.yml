@@ -45,7 +45,7 @@ jobs:
         run: yarn test --coverage
       - name: Add coverage to docs
         run: |
-          mkdir -p site/coverage
+          mkdir -p site/
           mv coverage/lcov-report site/coverage
       - name: Build Storybook
         run: |
