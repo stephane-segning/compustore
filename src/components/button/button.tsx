@@ -24,7 +24,7 @@ export default function Button<T extends React.ElementType>({
     <Component
       {...props}
       className={twMerge(
-        'px-4 py-2 transition ease-in-out hover:scale-110 overflow-clip text-ellipsis text-nowrap',
+        'px-4 py-2 transition ease-in-out hover:scale-110 overflow-clip text-ellipsis text-nowrap center-content',
         shape === 'circle' && 'rounded-full',
         shape === 'rounded' && 'rounded-lg',
         shape === 'square' && 'rounded-[0.1rem]',

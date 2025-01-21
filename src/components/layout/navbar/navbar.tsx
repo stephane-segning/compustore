@@ -33,21 +33,21 @@ const Navbar: React.FC = () => {
           shape="circle"
           color="neutral"
           size="sm"
-          className="flex justify-center items-center">
+        >
           T
         </Button>
         <Button
           shape="circle"
           color="neutral"
           size="sm"
-          className="flex justify-center items-center">
+        >
           C
         </Button>
         <Button
           shape="circle" 
           color="neutral" 
           size="sm"
-          className="flex justify-center items-center">
+        >
           A
         </Button>
         <Link href="/auth/signin">
@@ -94,21 +94,21 @@ const Navbar: React.FC = () => {
                 shape="circle"
                 color="neutral"
                 size="sm"
-                className="flex justify-center items-center">
+              >
                 T
               </Button>
               <Button
                 shape="circle"
                 color="neutral"
                 size="sm"
-                className="flex justify-center items-center">
+              >
                 C
               </Button>
               <Button
                 shape="circle"
                 color="neutral"
                 size="sm"
-                className="flex justify-center items-center">
+              >
                 A
               </Button>
             

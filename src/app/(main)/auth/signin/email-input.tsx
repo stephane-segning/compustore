@@ -18,7 +18,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
   <div className="mb-6">
     <label
       htmlFor="email"
-      className="block text-sm font-medium text-gray-700 mb-1"
+      className="block text-sm font-medium text-neutral-content mb-1"
     >
       Email address<span className="text-red">*</span>
     </label>
@@ -41,7 +41,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
     
     <Button
       onClick={handleEmailSignIn}
-      className="w-full border text-dark py-2 mt-4 hover:scale-100 bg-transparent hover:bg-primary-light"
+      className="w-full border text-neutral-content py-2 mt-4 hover:scale-10 bg-transparent hover:bg-primary-light"
     >
       Continue
     </Button>
