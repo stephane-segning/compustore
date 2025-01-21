@@ -124,6 +124,16 @@ export const protectedProcedure = t.procedure
     if (!ctx.session || !ctx.session.user) {
       throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
+
+     // Check if the user has the required role (optional)
+    // You can modify the role here based on the route's requirements.
+    if (ctx.session.user.role !== 'ADMIN') {
+      throw new TRPCError({
+        code: 'FORBIDDEN',
+        message: 'You do not have the necessary permissions to access this route.',
+      });
+    }
+    
     return next({
       ctx: {
         // infers the `session` as non-nullable
