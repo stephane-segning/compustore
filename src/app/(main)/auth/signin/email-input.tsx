@@ -41,7 +41,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
     
     <Button
       onClick={handleEmailSignIn}
-      className="w-full border text-neutral-content py-2 mt-4 hover:scale-10 bg-transparent hover:bg-primary-light"
+      className="w-full border text-neutral-content py-2 mt-4 bg-transparent hover:bg-primary-light"
     >
       Continue
     </Button>
