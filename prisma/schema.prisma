@@ -263,3 +263,14 @@ enum Role {
 
   @@map("roles")
 }
+
+model PaymentSession {
+  id              String   @id @default(cuid())
+  userId          String
+  paymentIntentId String
+  cartDetails     Json
+  amount          Int
+  status          String   @default("pending")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
