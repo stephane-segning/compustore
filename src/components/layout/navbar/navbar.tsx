@@ -2,7 +2,12 @@
 
 import React, { useState } from 'react';
 import Button from '@cps/components/button';
-import Link from 'next/link';
+
+const actionButtons = [
+  { label: 'T', shape: 'circle', color: 'neutral' },
+  { label: 'C', shape: 'circle', color: 'neutral' },
+  { label: 'A', shape: 'circle', color: 'neutral' },
+];
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,48 +18,30 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-primary-content p-4 flex items-center justify-between relative">
-
-     {/* Links for large screens */}
+      {/* Links for large screens */}
       <div className="hidden md:flex items-center gap-4">
-        <a href="#" className="text-sm hover:underline">
-          Home
-        </a>
-        <a href="#" className="text-sm hover:underline">
-          Store
-        </a>
-      </div> 
+        <a href="#" className="text-sm hover:underline">Home</a>
+        <a href="#" className="text-sm hover:underline">Store</a>
+      </div>
 
       {/* Logo */}
       <h1 className="text-lg font-bold">GPS Demo</h1>
 
       {/* Actions (buttons) */}
       <div className="hidden md:flex gap-2">
-        <Button
-          shape="circle"
-          color="neutral"
-          size="sm"
-        >
-          T
-        </Button>
-        <Button
-          shape="circle"
-          color="neutral"
-          size="sm"
-        >
-          C
-        </Button>
-        <Button
-          shape="circle" 
-          color="neutral" 
-          size="sm"
-        >
-          A
-        </Button>
-        <Link href="/auth/signin">
-          <Button className="rounded" color="neutral">
-            Sign In/ Sign Up
+        {actionButtons.map((btn, idx) => (
+          <Button
+            key={idx}
+          >
+            {btn.label}
           </Button>
-        </Link>
+        ))}
+        <Button
+          as="a"
+          href="/auth/signin"
+        >
+          Sign In / Sign Up
+        </Button>
       </div>
 
       {/* Hamburger menu for small screens */}
@@ -83,35 +70,16 @@ const Navbar: React.FC = () => {
       {isMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-neutral shadow-md md:hidden z-10">
           <div className="flex flex-col items-center gap-4 p-4">
-            <a href="#" className="text-sm hover:underline">
-              Home
-            </a>
-            <a href="#" className="text-sm hover:underline">
-              Store
-            </a>
+            <a href="#" className="text-sm hover:underline">Home</a>
+            <a href="#" className="text-sm hover:underline">Store</a>
             <div className="flex gap-2">
-              <Button
-                shape="circle"
-                color="neutral"
-                size="sm"
-              >
-                T
-              </Button>
-              <Button
-                shape="circle"
-                color="neutral"
-                size="sm"
-              >
-                C
-              </Button>
-              <Button
-                shape="circle"
-                color="neutral"
-                size="sm"
-              >
-                A
-              </Button>
-            
+              {actionButtons.map((btn, idx) => (
+                <Button
+                  key={idx}
+                >
+                  {btn.label}
+                </Button>
+              ))}
             </div>
           </div>
         </div>

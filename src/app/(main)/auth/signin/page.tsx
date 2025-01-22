@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import EmailInput from './email-input';
 import SocialSignInButtons from './auth-sign-in-button';
-import Link from 'next/link';
+import Button from '@cps/components/button';
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
@@ -47,12 +47,14 @@ const SignInPage = () => {
       {/* Sign Up Link */}
       <p className="text-sm text-center mb-6">
         Don't have an account?
-        <Link
+        <Button 
+          as="a"
           href="/auth/signup"
-          className="text-primary-content hover:text-neutral-dark ml-2"
+          color="outlined"
+          size="lg"
         >
-          Sign Up
-        </Link>
+          Sign up
+        </Button>
       </p>
 
       {/* Divider */}

@@ -1,6 +1,7 @@
 import React from 'react';
-import Button from '@cps/components/button';
+import Button from '@cps/components/button/button';
 import ErrorState from '@cps/components/common/error-state';
+import Input from '@cps/components/input/input';
 
 interface EmailInputProps {
   email: string;
@@ -22,13 +23,12 @@ const EmailInput: React.FC<EmailInputProps> = ({
     >
       Email address<span className="text-red">*</span>
     </label>
-    <input
-      type="email"
+    <Input
       id="email"
       value={email}
       onChange={(e) => setEmail(e.target.value)}
-      className="block w-full px-4 py-2 border rounded-md placeholder-500 focus:outline-none focus:ring-neutral-light focus:border-neutral-light"
       placeholder="Enter your email"
+      error={!!error}
     />
 
     {error && (
@@ -38,10 +38,11 @@ const EmailInput: React.FC<EmailInputProps> = ({
         </div>
       </div>
     )}
-    
+
     <Button
       onClick={handleEmailSignIn}
-      className="w-full border text-neutral-content py-2 mt-4 bg-transparent hover:bg-primary-light"
+      color='outlined'
+      size='lg'
     >
       Continue
     </Button>

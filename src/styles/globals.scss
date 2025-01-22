@@ -33,10 +33,3 @@
   --danger-light-color: #{color.adjust($danger-color, $lightness: 14%)};
   --danger-content-color: #{color.adjust($danger-color, $lightness: -40%)};
 }
-
-.center-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
