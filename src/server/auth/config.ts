@@ -3,7 +3,7 @@ import { type DefaultSession, type NextAuthConfig } from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
 // import GithubProvider from "next-auth/providers/github";
 // import GoogleProvider from "next-auth/providers/google";
-// import FacebookProvider from "next-auth/providers/facebook";
+import FacebookProvider from "next-auth/providers/facebook";
 
 import { db } from '@cps/server/db';
 import { env } from '@cps/env';
@@ -39,7 +39,7 @@ export const authConfig: NextAuthConfig = {
   providers: [
     DiscordProvider,
     // GoogleProvider,
-    // FacebookProvider,
+    FacebookProvider,
     // GithubProvider,
     /**
      * ...add more providers here.
