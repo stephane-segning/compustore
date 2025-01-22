@@ -62,6 +62,18 @@ model ProductStock {
   @@map("product_stocks")
 }
 
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  products    Product[] @relation("product_categories")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([name])
+  @@map("categories")
+}
+
 model Product {
   id          String         @id @default(cuid())
   name        String
@@ -78,41 +90,14 @@ model Product {
   variants ProductVariant[]
   cartItem CartItem[]
 
-  // Update the relationship to categories
-  categories ProductCategory[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  // Add the relationship to categories
+  categories Category[] @relation("product_categories")
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @default(now()) @updatedAt
 
   @@index([name])
   @@index([status, name])
   @@map("products")
-}
-
-model Category {
-  id          Int               @id @default(autoincrement())
-  name        String            @unique
-  description String?
-  products    ProductCategory[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  @@index([name])
-  @@map("categories")
-}
-
-/// Explicit many-to-many relation table
-model ProductCategory {
-  productId  String
-  categoryId Int
-  product    Product  @relation(fields: [productId], references: [id])
-  category   Category @relation(fields: [categoryId], references: [id])
-
-  // Use a composite key instead of marking both as @id
-  @@id([productId, categoryId])
-  @@index([productId])
-  @@index([categoryId])
 }
 
 enum ProductStatus {

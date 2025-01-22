@@ -81,15 +81,7 @@ export const productRouter = createTRPCRouter({
           skip,
           take: limit,
           where: {
-            ...(categoryFilter.length > 0 && {
-              categories: {
-                some: {
-                  category: {
-                    name: { in: categoryFilter }, // Use 'in' to match multiple categories
-                  },
-                },
-              },
-            }),
+            ...(category ? { categories: { some: { name: { in: categoryFilter } } } } : {}), // Correctly filter by category name
           },
           include: {
             stocks: include?.stocks,
@@ -103,15 +95,7 @@ export const productRouter = createTRPCRouter({
         // Total count for pagination metadata
         const totalCount = await db.product.count({
           where: {
-            ...(categoryFilter.length > 0 && {
-              categories: {
-                some: {
-                  category: {
-                    name: { in: categoryFilter },
-                  },
-                },
-              },
-            }),
+            ...(category ? { categories: { some: { name: { in: categoryFilter } } } } : {}), // Correctly filter by category name
           },
         });
 
