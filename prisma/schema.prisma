@@ -267,7 +267,8 @@ enum Role {
 model PaymentSession {
   id              String   @id @default(cuid())
   userId          String
-  paymentIntentId String
+  paymentIntentId String   @unique
+  cartId          String
   cartDetails     String
   amount          Int
   status          String   @default("pending")
