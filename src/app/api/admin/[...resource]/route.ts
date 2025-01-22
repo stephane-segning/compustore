@@ -11,7 +11,7 @@ const handler = async (req: Request, res: Response) => {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  requireRole(Role.ADMIN)(session.user.role);
+  requireRole(Role.ADMIN)(session.user);
   const body = await req.json();
   const result = await defaultHandler(body, db);
   return NextResponse.json(result);
