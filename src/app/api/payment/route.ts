@@ -6,7 +6,6 @@ import { TRPCError } from '@trpc/server';
 
 export const paymentRouter = ({
 
-    // Create a payment session
     createPaymentSession: publicProcedure
         .input(
             z.object({
@@ -33,7 +32,7 @@ export const paymentRouter = ({
                 0
             );
 
-            const amountInCents = amount * 100; // Convert dollars to cents
+            const amountInCents = amount * 100;
 
             // Create a payment intent using Stripe
             const paymentIntent = await stripe.paymentIntents.create({
@@ -76,7 +75,6 @@ export const paymentRouter = ({
                 return session;
             });
 
-            // Return the client secret to the frontend
             return {
                 clientSecret: paymentIntent.client_secret,
             };
