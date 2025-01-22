@@ -1,4 +1,4 @@
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '../../db';
 import { TRPCError } from '@trpc/server';
@@ -9,18 +9,12 @@ const CartItemSchema = z.object({
 });
 
 export const cart = createTRPCRouter({
-  getCart:  protectedProcedure
+  getCart:   publicProcedure
     .input(z.object({ userId: z.string().optional() }))
-    .query(async ({ input, ctx }) => {
-      if (ctx.session?.user?.id) { 
-        throw new TRPCError({
-          code: 'FORBIDDEN',
-          message: 'You must be logged in to view your cart.',
-        });
-      }
+    .query(async ({ input }) => {
       const { userId } = input;
       return db.cart.findUnique({
-        where: { userId: input.userId },
+        where: { userId },
         include: {
           items: {
             include: {
@@ -32,18 +26,12 @@ export const cart = createTRPCRouter({
         },
       });
     }),
-  addToCart:  protectedProcedure
+  addToCart:   publicProcedure
     .input(z.object({
       productId: z.string(),
       quantity: z.number().min(1),
     }))
     .mutation(async ({ input, ctx }) => {
-      if (!ctx.session?.user?.id) {
-        throw new TRPCError({
-          code: 'UNAUTHORIZED',
-          message: 'You must be logged in to add items to your cart.',
-        });
-      }
       const { productId, quantity } = input;
 
       const cart = await ctx.db.cart.findUnique({
@@ -94,22 +82,11 @@ export const cart = createTRPCRouter({
       return { success: true };
     }),
 
-  updateCart:  protectedProcedure
+  updateCart:   publicProcedure
     .input(z.object({
       itemId: z.string(), quantity: z.number().min(1),
     }))
     .mutation(async ({ input, ctx }) => {
-
-      const cartItem = await db.cartItem.findUnique({
-        where: { id: input.itemId },
-        include: { cart: true },
-      });
-      if (cartItem?.cart?.userId !== ctx.session?.user.id) {
-        throw new TRPCError({
-          code: 'FORBIDDEN',
-          message: 'You can only update items in your own cart.',
-        });
-      }
       const { itemId, quantity } = input;
 
       await db.cartItem.update({
@@ -120,32 +97,19 @@ export const cart = createTRPCRouter({
       return { success: true };
     }),
   
-    removeFromCart: protectedProcedure
+    removeFromCart: publicProcedure
     .input(z.object({ itemId: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      const cartItem = await db.cartItem.findUnique({
-        where: { id: input.itemId },
-        include: { cart: true },
+      const { itemId } = input;
+      await ctx.db.cartItem.delete({
+        where: { id: itemId },
       });
-      if (cartItem?.cart?.userId !== ctx.session?.user.id) {
-        throw new TRPCError({
-          code: 'FORBIDDEN',
-          message: 'You can only remove items from your own cart.',
-        });
-      }
-      await db.cartItem.delete({ where: { id: input.itemId } });
       return { success: true };
     }),
 
-  clearCart:  protectedProcedure
+  clearCart:   publicProcedure
     .input(z.object({ userId: z.string().optional() }))
-    .mutation(async ({ input, ctx }) => {
-      if (ctx.session?.user?.id !== input.userId) {
-        throw new TRPCError({
-          code: 'FORBIDDEN',
-          message: 'You can only clear your own cart.',
-        });
-      }
+    .mutation(async ({ input }) => {
       const { userId } = input;
 
       const cart = await db.cart.findUnique({ where: { userId } });
