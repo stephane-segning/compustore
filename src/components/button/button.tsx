@@ -5,7 +5,8 @@ import { twMerge } from 'tailwind-merge';
 export type ButtonProps<T extends React.ElementType> =
   React.HTMLAttributes<T> & {
     shape?: 'circle' | 'rounded' | 'square';
-    color?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'danger' | 'outlined';
+    color?: 'primary' | 'secondary' | 'accent' | 'neutral' | 'danger';
+    variant?: 'filled' | 'outlined' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
     flat?: boolean;
     as?: React.ElementType;
@@ -13,12 +14,20 @@ export type ButtonProps<T extends React.ElementType> =
     centercontent?: boolean;
   };
 
+const variantclasses = { 
+  filled: (color: string) => `bg-${color}-light text-${color}-content`,
+  outlined: (color: string) => `border-2 border-${color}-light text-${color}-content hover:bg-${color}-light bg-transparent w-full`,
+  ghost: (color: string) => `text-${color}-content hover:bg-${color}-light bg-transparent hover:bg-oppacity-10`,
+};
+  
+
 export default function Button<T extends React.ElementType>({
   as: Component = 'button',
   shape = 'rounded',
   color = 'neutral',
   size = 'md',
   flat = false,
+  variant = 'filled',
   centercontent = true,
   className,
   ...props
@@ -37,7 +46,7 @@ export default function Button<T extends React.ElementType>({
         color === 'accent' && 'bg-accent-light text-accent-content',
         color === 'neutral' && 'bg-neutral-light text-neutral-content',
         color === 'danger' && 'bg-danger-light text-danger-content',
-        color === 'outlined' && 'border-2 border-neutral-light bg-transparent text-neutral-content hover:bg-neutral-light text-center w-full',
+        variantclasses[variant]?.(color),
         size === 'sm' && 'text-sm',
         size === 'md' && 'text-base',
         size === 'lg' && 'text-lg',

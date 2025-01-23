@@ -50,7 +50,7 @@ const SignInPage = () => {
         <Button 
           as="a"
           href="/auth/signup"
-          color="outlined"
+          variant="outlined"
           size="lg"
         >
           Sign up

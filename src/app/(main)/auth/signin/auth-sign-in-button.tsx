@@ -16,7 +16,7 @@ const SocialSignInButtons: React.FC<SocialSignInButtonsProps> = ({
         <Button
           key={provider}
           onClick={() => handleSignIn(provider)}
-          color="outlined"
+          variant='outlined'
           size="lg"
         >
           <span>Continue with {provider.charAt(0).toUpperCase() + provider.slice(1)}</span>
