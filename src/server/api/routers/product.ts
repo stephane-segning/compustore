@@ -1,8 +1,10 @@
 import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '../trpc';
+import { createTRPCRouter, publicProcedure, protectedProcedure } from '../trpc';
 import { db } from '../../db';
 import { TRPCError } from '@trpc/server';
 import DOMPurify from 'dompurify';
+import  getServerSession  from 'next-auth';
+import { authConfig } from '@cps/server/auth/config'; 
 
 // Enhanced sanitizeHTML function
 export const sanitizeHTML = (html: string) => {
@@ -93,5 +95,82 @@ export const productRouter = createTRPCRouter({
           currentPage: page,
         },
       };
+    }),
+  
+  
+  // Create a new product (accessible only by ADMIN)
+  createProduct: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        description: z.string().optional(),
+        price: z.number(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const session = await getServerSession(authConfig);
+      
+      if (!session || (session as any).user.role !== 'ADMIN') {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You do not have permission to create products.',
+        });
+      }
+
+      const newProduct = await db.product.create({
+        data: input,
+      });
+
+      return newProduct;
+    }),
+
+  // Update a product (accessible only by ADMIN)
+  updateProduct: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        description: z.string().optional(),
+        price: z.number(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const session = await getServerSession(authConfig);
+      
+      if (!session || (session as any).user.role !== 'ADMIN') {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You do not have permission to update this product.',
+        });
+      }
+
+      const updatedProduct = await db.product.update({
+        where: { id: input.id },
+        data: input,
+      });
+
+      return updatedProduct;
+    }),
+
+  // Delete a product (accessible only by ADMIN)
+  deleteProduct: protectedProcedure
+    .input(z.object({
+      id: z.string(),
+    }))
+    .mutation(async ({ input }) => {
+      const session = await getServerSession(authConfig);
+
+      if (!session || (session as any).user.role !== 'ADMIN') {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You do not have permission to delete this product.',
+        });
+      }
+
+      const deletedProduct = await db.product.delete({
+        where: { id: input.id },
+      });
+
+      return deletedProduct;
     }),
 });
