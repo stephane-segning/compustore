@@ -26,13 +26,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
-    S3_ENDPOINT: z.string(),
-    S3_ACCESS_KEY: z.string(),
-    S3_SECRET_KEY: z.string(),
-    S3_PORT: z.number(),
     S3_SCHEME: z.string(),
-    S3_BUCKET: z.string(),
-    S3_CDN_URL: z.string(),
 
     AWS_BUCKET: z.string(),
     AWS_REGION: z.string(),
@@ -74,13 +68,7 @@ export const env = createEnv({
 
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
-    S3_ENDPOINT: process.env.S3_ENDPOINT,
-    S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
-    S3_SECRET_KEY: process.env.S3_SECRET_KEY,
-    S3_PORT: Number(process.env.S3_PORT),
     S3_SCHEME: process.env.S3_SCHEME,
-    S3_BUCKET: process.env.S3_BUCKET,
-    S3_CDN_URL: process.env.S3_CDN_URL,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
 
     AWS_BUCKET: process.env.AWS_BUCKET,
