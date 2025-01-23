@@ -1,14 +1,14 @@
 import { createTRPCRouter, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '../../db';
+import { TRPCError } from '@trpc/server';
 
 const CartItemSchema = z.object({
   productId: z.string(),
   quantity: z.number().min(1),
 });
-
 export const cart = createTRPCRouter({
-  getCart: publicProcedure
+  getCart:publicProcedure
     .input(z.object({ userId: z.string().optional() }))
     .query(async ({ input }) => {
       const { userId } = input;
@@ -25,29 +25,25 @@ export const cart = createTRPCRouter({
         },
       });
     }),
-  addToCart: publicProcedure
+  addToCart:publicProcedure
     .input(z.object({
       productId: z.string(),
       quantity: z.number().min(1),
     }))
     .mutation(async ({ input, ctx }) => {
       const { productId, quantity } = input;
-
       const cart = await ctx.db.cart.findUnique({
         where: { userId: ctx.session?.user?.id },
       });
-
       if (!cart) {
         throw new Error('Cart not found');
       }
-
       const existingCartItem = await ctx.db.cartItem.findFirst({
         where: {
           cartId: cart.id,
           productId,
         },
       });
-
       if (existingCartItem) {
         await ctx.db.cartItem.update({
           where: { id: existingCartItem.id },
@@ -58,16 +54,13 @@ export const cart = createTRPCRouter({
           where: { id: productId },
           select: { prices: true },
         });
-
         if (!product || !product.prices.length) {
           throw new Error('Product not found or has no prices');
         }
-
         const price = product.prices[0]?.price;
         if (typeof price !== 'number') {
           throw new Error('Invalid price for the product');
         }
-
         await ctx.db.cartItem.create({
           data: {
             cartId: cart.id,
@@ -77,17 +70,14 @@ export const cart = createTRPCRouter({
           },
         });
       }
-
       return { success: true };
     }),
-
-  updateCart: publicProcedure
+  updateCart:publicProcedure
     .input(z.object({
       itemId: z.string(), quantity: z.number().min(1),
     }))
     .mutation(async ({ input, ctx }) => {
       const { itemId, quantity } = input;
-
       await db.cartItem.update({
         where: { id: itemId },
         data: { quantity },
@@ -95,8 +85,7 @@ export const cart = createTRPCRouter({
 
       return { success: true };
     }),
-
-  removeFromCart: publicProcedure
+    removeFromCart:publicProcedure
     .input(z.object({ itemId: z.string() }))
     .mutation(async ({ input, ctx }) => {
       const { itemId } = input;
@@ -105,18 +94,15 @@ export const cart = createTRPCRouter({
       });
       return { success: true };
     }),
-
-  clearCart: publicProcedure
+  clearCart:publicProcedure
     .input(z.object({ userId: z.string().optional() }))
     .mutation(async ({ input }) => {
       const { userId } = input;
-
       const cart = await db.cart.findUnique({ where: { userId } });
       if (!cart) {
         // Cart not found, nothing to clear
         return { success: true };
       }
-
       await db.cartItem.deleteMany({
         where: { cartId: cart.id },
       });
