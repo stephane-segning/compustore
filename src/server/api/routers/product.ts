@@ -59,30 +59,25 @@ export const productRouter = createTRPCRouter({
               variants: z.boolean().optional().default(false),
             })
             .optional(), // Custom includes
-          category: z.string().optional(), // Add optional category filter
+          category: z.array(z.string()).optional(), // Add optional category filter
         })
         .optional(), // Make the entire input optional
     )
     .query(async ({ input }) => {
       try {
         // Extract input values or apply defaults
-        const { page = 1, limit = 10, include, category } = input || {};
+        const { page = 1, limit = 10, include, category = [] } = input || {};
 
         // Calculate offset for pagination
         const skip = (page - 1) * limit;
-
-        // Split the category filter into an array if provided
-        const categoryFilter = category
-          ? category.split(',').map((name) => name.trim())
-          : [];
 
         // Query database with dynamic includes and pagination
         const products = await db.product.findMany({
           skip,
           take: limit,
-          where: {
-            ...(category ? { categories: { some: { name: { in: categoryFilter } } } } : {}), // Correctly filter by category name
-          },
+          where: category.length > 0
+          ? { categories: { some: { name: { in: category } } } }
+          : {}, 
           include: {
             stocks: include?.stocks,
             prices: include?.prices,
@@ -94,9 +89,9 @@ export const productRouter = createTRPCRouter({
 
         // Total count for pagination metadata
         const totalCount = await db.product.count({
-          where: {
-            ...(category ? { categories: { some: { name: { in: categoryFilter } } } } : {}), // Correctly filter by category name
-          },
+          where: category.length > 0
+          ? { categories: { some: { name: { in: category } } } }
+          : {},
         });
 
         return {
@@ -107,7 +102,7 @@ export const productRouter = createTRPCRouter({
             currentPage: page,
           },
         };
-      } catch (err) { 
+      } catch (err) {
         console.error('Error in getAllProducts:', err);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',

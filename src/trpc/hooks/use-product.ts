@@ -25,7 +25,7 @@ type UseAllProduct = {
   images?: boolean;
   variants?: boolean;
   thumbnail?: boolean;
-  category?: string;
+  category?: string[];
 };
 
 // Hook to fetch all products

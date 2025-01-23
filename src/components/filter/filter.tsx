@@ -21,7 +21,7 @@ const Filter: React.FC = () => {
     .map((category) => category.label);
 
   const { data: products, isLoading, error } = useAllProducts({
-    category: selectedCategories.join(','), // Pass selected categories as a comma-separated string
+    category: selectedCategories, // Pass selected categories 
   });
 
   const toggleDropdown = () => {
