@@ -3,7 +3,7 @@ import { createCallerFactory, createTRPCRouter } from '@cps/server/api/trpc';
 import { uploadRouter } from './routers/upload';
 import { productRouter } from './routers/product';
 import { cart } from '@cps/server/api/routers/cart';
-import {paymentRouter} from "@cps/app/api/payment/route";
+import {paymentRouter} from "@cps/server/api/payment/route";
 
 /**
  * This is the primary router for your server.
