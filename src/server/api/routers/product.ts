@@ -61,40 +61,56 @@ export const productRouter = createTRPCRouter({
               variants: z.boolean().optional().default(false),
             })
             .optional(), // Custom includes
+          category: z.array(z.string()).optional(), // Add optional category filter
         })
         .optional(), // Make the entire input optional
     )
     .query(async ({ input }) => {
-      // Extract input values or apply defaults
-      const { page = 1, limit = 10, include } = input || {};
+      try {
+        // Extract input values or apply defaults
+        const { page = 1, limit = 10, include, category = [] } = input || {};
 
-      // Calculate offset for pagination
-      const skip = (page - 1) * limit;
+        // Calculate offset for pagination
+        const skip = (page - 1) * limit;
 
-      // Query database with dynamic includes and pagination
-      const products = await db.product.findMany({
-        skip,
-        take: limit,
-        include: {
-          stocks: include?.stocks,
-          prices: include?.prices,
-          images: include?.images,
-          variants: include?.variants,
-          thumbnail: include?.thumbnail,
-        },
-      });
+        // Query database with dynamic includes and pagination
+        const products = await db.product.findMany({
+          skip,
+          take: limit,
+          where: category.length > 0
+          ? { categories: { some: { name: { in: category } } } }
+          : {}, 
+          include: {
+            stocks: include?.stocks,
+            prices: include?.prices,
+            images: include?.images,
+            variants: include?.variants,
+            thumbnail: include?.thumbnail,
+          },
+        });
 
-      // Total count for pagination metadata
-      const totalCount = await db.product.count();
+        // Total count for pagination metadata
+        const totalCount = await db.product.count({
+          where: category.length > 0
+          ? { categories: { some: { name: { in: category } } } }
+          : {},
+        });
 
-      return {
-        products,
-        meta: {
-          totalItems: totalCount,
-          totalPages: Math.ceil(totalCount / limit),
-          currentPage: page,
-        },
-      };
+        return {
+          products,
+          meta: {
+            totalItems: totalCount,
+            totalPages: Math.ceil(totalCount / limit),
+            currentPage: page,
+          },
+        };
+      } catch (err) {
+        console.error('Error in getAllProducts:', err);
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'An unexpected error occurred while fetching products.',
+        });
+      }
     }),
   
   
