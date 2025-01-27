@@ -37,7 +37,7 @@
     "@trpc/client": "^11.0.0-rc.446",
     "@trpc/react-query": "^11.0.0-rc.446",
     "@trpc/server": "^11.0.0-rc.446",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "js-cookie": "^3.0.5",
     "minio": "^8.0.3",
     "next": "^15.1.5",
