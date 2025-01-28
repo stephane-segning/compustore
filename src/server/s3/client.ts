@@ -13,18 +13,18 @@ const createS3Client = () => new S3Client({
   region: env.AWS_REGION, // Specify the region
 });
 
-export async function uploadToS3(bucketName: string, file: Buffer, fileName: string) {
-  try {
-    const command = new PutObjectCommand({
-      Bucket: bucketName,
-      Key: fileName,
-      Body: file,
-    });
-    await client.send(command);
-    console.log('File uploaded successfully');
-  } catch (err) {
-    console.error('Error uploading file:', err);
-    throw err;
-  }
-}
+// export async function uploadToS3(bucketName: string, file: Buffer, fileName: string) {
+//   try {
+//     const command = new PutObjectCommand({
+//       Bucket: bucketName,
+//       Key: fileName,
+//       Body: file,
+//     });
+//     await client.send(command);
+//     console.log('File uploaded successfully');
+//   } catch (err) {
+//     console.error('Error uploading file:', err);
+//     throw err;
+//   }
+// }
 export const client = createS3Client();
