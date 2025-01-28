@@ -52,6 +52,7 @@ const SignInPage = () => {
           href="/auth/signup"
           variant="outlined"
           size="lg"
+          centercontent
         >
           Sign up
         </Button>

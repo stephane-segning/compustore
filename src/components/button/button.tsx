@@ -28,7 +28,7 @@ export default function Button<T extends React.ElementType>({
   size = 'md',
   flat = false,
   variant = 'filled',
-  centercontent = true,
+  centercontent = false,
   className,
   ...props
 }: ButtonProps<T>) {
