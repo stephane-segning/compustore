@@ -53,6 +53,11 @@ export const authConfig: NextAuthConfig = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+
+  pages: {
+    signIn: "/auth/signin", // Custom login page
+  },
+  
   adapter: PrismaAdapter(db),
   
   session: {

@@ -3,6 +3,12 @@
 import React, { useState } from 'react';
 import Button from '@cps/components/button';
 
+const actionButtons = [
+  { label: 'T', shape: 'circle', color: 'neutral' },
+  { label: 'C', shape: 'circle', color: 'neutral' },
+  { label: 'A', shape: 'circle', color: 'neutral' },
+];
+
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -12,30 +18,29 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-primary-content p-4 flex items-center justify-between relative">
-
-     {/* Links for large screens */}
+      {/* Links for large screens */}
       <div className="hidden md:flex items-center gap-4">
-        <a href="#" className="text-sm hover:underline">
-          Home
-        </a>
-        <a href="#" className="text-sm hover:underline">
-          Store
-        </a>
-      </div> 
+        <a href="#" className="text-sm hover:underline">Home</a>
+        <a href="#" className="text-sm hover:underline">Store</a>
+      </div>
 
       {/* Logo */}
       <h1 className="text-lg font-bold">GPS Demo</h1>
 
       {/* Actions (buttons) */}
       <div className="hidden md:flex gap-2">
-        <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
-          T
-        </Button>
-        <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
-          C
-        </Button>
-        <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
-          A
+        {actionButtons.map((btn, idx) => (
+          <Button
+            key={idx}
+          >
+            {btn.label}
+          </Button>
+        ))}
+        <Button
+          as="a"
+          href="/auth/signin"
+        >
+          Sign In / Sign Up
         </Button>
       </div>
 
@@ -65,22 +70,16 @@ const Navbar: React.FC = () => {
       {isMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-neutral shadow-md md:hidden z-10">
           <div className="flex flex-col items-center gap-4 p-4">
-            <a href="#" className="text-sm hover:underline">
-              Home
-            </a>
-            <a href="#" className="text-sm hover:underline">
-              Store
-            </a>
+            <a href="#" className="text-sm hover:underline">Home</a>
+            <a href="#" className="text-sm hover:underline">Store</a>
             <div className="flex gap-2">
-              <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
-                T
-              </Button>
-              <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
-                C
-              </Button>
-              <Button className="w-8 h-8 rounded-full bg-neutral-light flex justify-center items-center">
-                A
-              </Button>
+              {actionButtons.map((btn, idx) => (
+                <Button
+                  key={idx}
+                >
+                  {btn.label}
+                </Button>
+              ))}
             </div>
           </div>
         </div>
