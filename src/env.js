@@ -26,7 +26,6 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
-    S3_SCHEME: z.string(),
 
     AWS_BUCKET: z.string(),
     AWS_REGION: z.string(),
@@ -68,7 +67,6 @@ export const env = createEnv({
 
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
-    S3_SCHEME: process.env.S3_SCHEME,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
 
     AWS_BUCKET: process.env.AWS_BUCKET,

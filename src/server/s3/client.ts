@@ -1,17 +1,26 @@
 import 'server-only';
 
-import { Client } from 'minio';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { env } from '@cps/env';
 
-const createS3Client = () => new Client({
-  endPoint: env.AWS_ENDPOINT,
-  accessKey: env.AWS_ACCESS_KEY_ID!,
-  secretKey: env.AWS_SECRET_ACCESS_KEY!,
+
+const createS3Client = () => new S3Client({
+  endpoint: env.AWS_ENDPOINT,
+  credentials: {
+    accessKeyId: env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY!,
+  },
+  region: env.AWS_REGION, // Specify the region
 });
 
 export async function uploadToS3(bucketName: string, file: Buffer, fileName: string) {
   try {
-    await client.putObject(bucketName, fileName, file);
+    const command = new PutObjectCommand({
+      Bucket: bucketName,
+      Key: fileName,
+      Body: file,
+    });
+    await client.send(command);
     console.log('File uploaded successfully');
   } catch (err) {
     console.error('Error uploading file:', err);
