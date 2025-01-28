@@ -1,14 +1,16 @@
 import 'server-only';
 
-import { Client } from 'minio';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { env } from '@cps/env';
 
-const createS3Client = () => new Client({
-  endPoint: env.S3_ENDPOINT,
-  accessKey: env.S3_ACCESS_KEY!,
-  secretKey: env.S3_SECRET_KEY!,
-  useSSL: env.S3_SCHEME === 'https',
-  port: env.S3_PORT
+
+const createS3Client = () => new S3Client({
+  endpoint: env.AWS_ENDPOINT,
+  credentials: {
+    accessKeyId: env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY!,
+  },
+  region: env.AWS_REGION, // Specify the region
 });
 
 export const client = createS3Client();
