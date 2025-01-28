@@ -22,7 +22,7 @@ const SocialSignInButtons: React.FC<SocialSignInButtonsProps> = ({
         <Button
           key={name}
           onClick={() => handleSignIn(name)}
-          variant="outlined"
+          variant='outlined'
           size="lg"
           className='flex '
         >
