@@ -93,7 +93,7 @@
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "prettier-plugin-tailwindcss": "^0.6.5",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^5.14.0",
     "sass": "^1.83.4",
     "serve": "^14.2.4",
