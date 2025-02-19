@@ -1,0 +1,1372 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A GIS Stripe Project to demonstrate Payments and payment processor using good practices">
+      
+      
+      
+        <link rel="canonical" href="https://stephane-segning.github.io/compustore/SSDLC/">
+      
+      
+        <link rel="prev" href="../branching-strategy/">
+      
+      
+        <link rel="next" href="../architecture/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+    
+    
+      
+        <title>SSDLC - Compustore</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ssdlc-discussions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Compustore" class="md-header__button md-logo" aria-label="Compustore" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Compustore
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SSDLC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/stephane-segning/compustore" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Compustore
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Compustore" class="md-nav__button md-logo" aria-label="Compustore" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Compustore
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/stephane-segning/compustore" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Compustore
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branching-strategy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Branching Concept
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SSDLC
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SSDLC
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-overview-compustore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Overview: Compustore
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A. Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Store
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payments" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Payments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-user-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. User Authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-admin-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Admin Panel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-threat-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Threat Modeling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B. Threat Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-roles-and-threats" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Roles and Threats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Roles and Threats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-anonymous-user-unauthenticated-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Anonymous User (Unauthenticated Access)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-authenticated-customer" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. User (Authenticated Customer)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-admin-authorized-administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Admin (Authorized Administrator)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-based-threats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component-Based Threats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component-Based Threats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-product-and-order-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Product and Order Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payment-processing-and-stripe-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Payment Processing and Stripe Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-authentication-and-session-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Authentication and Session Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-deployment-and-data-storage-vercel-and-neontech" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Deployment and Data Storage (Vercel and Neon.tech)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-architecture-tech-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Architecture &amp; Tech Stack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C. Architecture & Tech Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-and-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment and Hosting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-technologies-and-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Technologies and Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Technologies and Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-core-framework-and-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Core Framework and Libraries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-state-management-and-data-fetching" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. State Management and Data Fetching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-payment-integration-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Payment Integration Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-static-code-analysis-sca-and-code-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Static Code Analysis (SCA) and Code Quality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-uiux-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. UI/UX Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-testing-and-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Testing and Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-package-management-and-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Package Management and CI/CD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-development-environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Development Environment Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storybook" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storybook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-overview-compustore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Overview: Compustore
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A. Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Store
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payments" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Payments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-user-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. User Authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-admin-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Admin Panel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-threat-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Threat Modeling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B. Threat Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-roles-and-threats" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Roles and Threats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Roles and Threats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-anonymous-user-unauthenticated-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Anonymous User (Unauthenticated Access)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-authenticated-customer" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. User (Authenticated Customer)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-admin-authorized-administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Admin (Authorized Administrator)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-based-threats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component-Based Threats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component-Based Threats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-product-and-order-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Product and Order Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payment-processing-and-stripe-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Payment Processing and Stripe Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-authentication-and-session-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Authentication and Session Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-deployment-and-data-storage-vercel-and-neontech" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Deployment and Data Storage (Vercel and Neon.tech)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-architecture-tech-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Architecture &amp; Tech Stack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C. Architecture & Tech Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-and-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment and Hosting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-technologies-and-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Technologies and Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Technologies and Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-core-framework-and-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Core Framework and Libraries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-state-management-and-data-fetching" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. State Management and Data Fetching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-payment-integration-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Payment Integration Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-static-code-analysis-sca-and-code-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Static Code Analysis (SCA) and Code Quality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-uiux-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. UI/UX Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-testing-and-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Testing and Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-package-management-and-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Package Management and CI/CD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-development-environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Development Environment Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ssdlc-discussions">SSDLC Discussions<a class="headerlink" href="#ssdlc-discussions" title="Permanent link">&para;</a></h1>
+<h2 id="project-overview-compustore">Project Overview: Compustore<a class="headerlink" href="#project-overview-compustore" title="Permanent link">&para;</a></h2>
+<p><strong>Project Summary</strong><br />
+Compustore is a web-based application designed to serve as an online computer store with core e-commerce functionalities. Key features include product listings, order management, secure payment processing, and an admin interface for managing inventory and sales. Built with Next.js, the application will leverage modern technologies like Stripe for payment integration, NextAuth.js for user authentication, and React Admin for efficient administration. The project aims to provide a smooth user experience while adhering to best practices in secure software development. </p>
+<p>To ensure high-quality development, Compustore will follow a secure software development lifecycle (SSDLC) with steps designed to minimize vulnerabilities from planning through deployment. Adopting Scrum practices, the project will run in iterative sprints, incorporating regular demos and feedback sessions to maintain alignment with business needs. Task management will be organized on a Kanban board, emphasizing collaborative progress tracking.</p>
+<p><strong>Key Project Objectives</strong>
+- Develop a user-friendly, secure web application for selling computer products.
+- Implement modular, reusable code components to support efficient scaling and future enhancements.
+- Ensure cost-effective deployment and operational processes.</p>
+<hr />
+<h2 id="a-requirements">A. Requirements<a class="headerlink" href="#a-requirements" title="Permanent link">&para;</a></h2>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<h4 id="1-store">1. Store<a class="headerlink" href="#1-store" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Product Listings</strong>: Enable users to view product listings categorized by various computer hardware and accessory types. Each listing should display essential product details such as name, description, price, specifications, and stock availability.</li>
+<li><strong>Order Management</strong>: Implement functionality for users to add products to a cart, review orders, and complete checkout. The order management system should maintain accurate records of each order, tracking its status (e.g., pending, shipped, delivered).</li>
+<li><strong>Checkout Functionality</strong>: Ensure a secure, smooth checkout process that allows users to review their cart and make payments using integrated Stripe functionality.</li>
+<li><strong>Invoice Management</strong>: Link Stripe invoices and billing systems to each order, allowing users to access transaction records and invoices through their accounts.</li>
+</ul>
+<h4 id="2-payments">2. Payments<a class="headerlink" href="#2-payments" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>One-Time and Subscription Payments</strong>: Use Stripe to support secure one-time payments for single product purchases and recurring payments for subscription services.</li>
+<li><strong>Invoice Generation and Management</strong>: Ensure that each transaction generates an invoice stored in both the user’s account and the admin interface for tracking and management.</li>
+<li><strong>Payment Notifications</strong>: Configure notifications to confirm successful payments and alert users in case of payment issues.</li>
+</ul>
+<h4 id="3-user-authentication">3. User Authentication<a class="headerlink" href="#3-user-authentication" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Login and Authentication</strong>: Utilize NextAuth.js to enable secure user login, registration, and authentication, with session handling managed by Next.js to maintain logged-in status.</li>
+<li><strong>Session Management</strong>: Integrate <code>useSession</code> from NextAuth.js to track user sessions seamlessly across all devices, ensuring a secure and consistent user experience.</li>
+<li><strong>User Roles</strong>: Define roles for users, such as Customer, Admin, and Guest, with varying levels of access to functionality, particularly in the admin panel.</li>
+</ul>
+<h4 id="4-admin-panel">4. Admin Panel<a class="headerlink" href="#4-admin-panel" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>CRUD Operations</strong>: Build an admin panel using React Admin, allowing for efficient creation, reading, updating, and deletion (CRUD) of products, orders, and invoices.</li>
+<li><strong>Product and Order Management</strong>: Create custom pages within the admin panel for handling product inventory, including the ability to add, edit, and delete products. Implement order management features for tracking order statuses, updating orders, and managing customer queries.</li>
+<li><strong>Secure Access and Authentication</strong>: Configure the admin panel to restrict access to authorized personnel only, leveraging NextAuth.js to verify admin roles before allowing access to any sensitive operations.</li>
+</ul>
+<hr />
+<h2 id="b-threat-modeling">B. Threat Modeling<a class="headerlink" href="#b-threat-modeling" title="Permanent link">&para;</a></h2>
+<p><strong>Overview</strong><br />
+Threat modeling for Compustore will identify potential security risks across three user roles (anonymous, user, admin) and within key functionalities such as product management, order processing, and payment handling. The model will use the STRIDE framework to classify threats and evaluate them from both the frontend and backend perspectives. Given that the application will deploy on Vercel and use Neon.tech for production databases, considerations around cloud security, API access, and data protection are essential.</p>
+<h3 id="user-roles-and-threats">User Roles and Threats<a class="headerlink" href="#user-roles-and-threats" title="Permanent link">&para;</a></h3>
+<h4 id="1-anonymous-user-unauthenticated-access">1. <strong>Anonymous User (Unauthenticated Access)</strong><a class="headerlink" href="#1-anonymous-user-unauthenticated-access" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Role Description</strong>: This role represents all users who have not logged into the application. Anonymous users should be able to browse products and view individual product details but will not have access to sensitive data or any order history.</li>
+<li><strong>Potential Threats</strong>:<ul>
+<li><strong>Spoofing and Information Disclosure</strong>: Unauthorized access attempts to impersonate a logged-in user, potentially via forged cookies or manipulated session tokens.</li>
+<li><strong>Tampering</strong>: Attempts to modify publicly accessible endpoints to retrieve restricted data (e.g., viewing order history or accessing admin pages).</li>
+<li><strong>Denial of Service (DoS)</strong>: Flooding of public endpoints like product listings to overwhelm server capacity.</li>
+</ul>
+</li>
+<li><strong>Mitigations</strong>:<ul>
+<li>Use secure session cookies with HttpOnly and SameSite attributes.</li>
+<li>Enforce access control by validating user sessions with <code>useSession</code> in NextAuth.js to prevent unauthorized access to logged-in user data.</li>
+<li>Rate-limit anonymous access to public endpoints to prevent DoS attacks.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-user-authenticated-customer">2. <strong>User (Authenticated Customer)</strong><a class="headerlink" href="#2-user-authenticated-customer" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Role Description</strong>: Authenticated users can browse products, view product details, add products to a cart, and complete purchases. They can also view their own order history but not the order histories of other users.</li>
+<li><strong>Potential Threats</strong>:<ul>
+<li><strong>Elevation of Privileges</strong>: Attempt to escalate privileges by tampering with session tokens or manipulating API requests to gain access to admin-level features.</li>
+<li><strong>Information Disclosure</strong>: Unauthorized access to other users’ order data or sensitive payment information.</li>
+<li><strong>Repudiation</strong>: Users may dispute transactions or claim lack of accountability for certain actions (e.g., unauthorized purchases).</li>
+</ul>
+</li>
+<li><strong>Mitigations</strong>:<ul>
+<li>Implement role-based access controls to restrict order history views to the authenticated user’s own records only.</li>
+<li>Validate all session tokens with NextAuth.js to prevent token tampering or reuse attacks.</li>
+<li>Implement logging and monitoring to track user activities, which aids in auditing and repudiation handling.</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-admin-authorized-administrator">3. <strong>Admin (Authorized Administrator)</strong><a class="headerlink" href="#3-admin-authorized-administrator" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Role Description</strong>: Admins have full access to product and order management, including creating, updating, and deleting products. They can also capture orders and manage the order lifecycle.</li>
+<li><strong>Potential Threats</strong>:<ul>
+<li><strong>Elevation of Privileges</strong>: Unauthorized users gaining admin privileges, possibly through unpatched security vulnerabilities or misconfigurations.</li>
+<li><strong>Information Disclosure</strong>: Accidental exposure of sensitive data, such as product costs, order data, or customer PII, due to admin actions.</li>
+<li><strong>Tampering and Repudiation</strong>: Malicious or accidental modifications of order and product records without proper accountability.</li>
+</ul>
+</li>
+<li><strong>Mitigations</strong>:<ul>
+<li>Require Multi-Factor Authentication (MFA) for admin users to prevent unauthorized access.</li>
+<li>Enforce strict logging of admin actions for accountability and auditing.</li>
+<li>Implement role-based access restrictions, ensuring CRUD operations are only accessible to authenticated admin roles.</li>
+<li>Review and apply the principle of least privilege, ensuring admin accounts are created only as necessary and periodically reviewed.</li>
+</ul>
+</li>
+</ul>
+<h3 id="component-based-threats">Component-Based Threats<a class="headerlink" href="#component-based-threats" title="Permanent link">&para;</a></h3>
+<h4 id="1-product-and-order-management">1. <strong>Product and Order Management</strong><a class="headerlink" href="#1-product-and-order-management" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Threats</strong>:<ul>
+<li><strong>Tampering</strong>: Unauthorized changes to product data or order statuses via unsecured endpoints.</li>
+<li><strong>Information Disclosure</strong>: Exposing product or order data inadvertently through poorly secured API endpoints.</li>
+</ul>
+</li>
+<li><strong>Mitigations</strong>:<ul>
+<li>Secure CRUD endpoints with role-based access control, allowing only authenticated admin users to perform modifications.</li>
+<li>Sanitize and validate all data inputs and outputs to prevent injection attacks.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-payment-processing-and-stripe-integration">2. <strong>Payment Processing and Stripe Integration</strong><a class="headerlink" href="#2-payment-processing-and-stripe-integration" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Threats</strong>:<ul>
+<li><strong>Spoofing</strong>: Attempting to impersonate payment requests or responses between the application and Stripe.</li>
+<li><strong>Tampering</strong>: Modifying payment data in transit to exploit the system, such as changing payment amounts or intercepting invoice data.</li>
+<li><strong>Information Disclosure</strong>: Exposure of sensitive payment data or customer billing information.</li>
+</ul>
+</li>
+<li><strong>Mitigations</strong>:<ul>
+<li>Use HTTPS for all transactions and secure webhooks to prevent data tampering and man-in-the-middle attacks.</li>
+<li>Only store minimal payment details and rely on Stripe to manage sensitive payment information directly.</li>
+<li>Implement webhook verification with Stripe to ensure authenticity of incoming payment notifications.</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-authentication-and-session-management">3. <strong>Authentication and Session Management</strong><a class="headerlink" href="#3-authentication-and-session-management" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Threats</strong>:<ul>
+<li><strong>Session Hijacking</strong>: Stealing or forging session cookies to gain unauthorized access to accounts.</li>
+<li><strong>Cross-Site Request Forgery (CSRF)</strong>: Exploiting the user's logged-in state to perform unauthorized actions on their behalf.</li>
+<li><strong>Repudiation</strong>: Users potentially denying specific actions or purchases made within their session.</li>
+</ul>
+</li>
+<li><strong>Mitigations</strong>:<ul>
+<li>Use secure session cookies with HttpOnly and SameSite attributes to prevent session hijacking.</li>
+<li>Implement CSRF protection, especially on sensitive actions like account updates and order placements.</li>
+<li>Log all significant user actions to provide an audit trail for tracking user activity and mitigating repudiation.</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-deployment-and-data-storage-vercel-and-neontech">4. <strong>Deployment and Data Storage (Vercel and Neon.tech)</strong><a class="headerlink" href="#4-deployment-and-data-storage-vercel-and-neontech" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Threats</strong>:<ul>
+<li><strong>Denial of Service (DoS)</strong>: Overloading the production server or database, leading to downtime or performance issues.</li>
+<li><strong>Data Breaches</strong>: Unauthorized access to the database, potentially exposing user data and order information.</li>
+</ul>
+</li>
+<li><strong>Mitigations</strong>:<ul>
+<li>Use Vercel’s security features and Neon.tech’s built-in security configurations, including access control and network restrictions, to protect against unauthorized access.</li>
+<li>Enable automated backups in Neon.tech and implement secure database credentials management via Vercel’s environment variables.</li>
+<li>Monitor server and database access logs and set up alerts for unusual access patterns or potential DoS attacks.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="c-architecture-tech-stack">C. Architecture &amp; Tech Stack<a class="headerlink" href="#c-architecture-tech-stack" title="Permanent link">&para;</a></h2>
+<h3 id="application-architecture">Application Architecture<a class="headerlink" href="#application-architecture" title="Permanent link">&para;</a></h3>
+<p>The Compustore application will be built on a <strong>microservices-inspired</strong> architecture using Next.js as the main framework, with separation between frontend and backend services. We’ll implement a modular structure where each component is decoupled, making the system flexible, scalable, and adaptable to future integrations. The architecture is designed for rapid development while maintaining a high degree of security and maintainability through static code analysis (SCA) and comprehensive test coverage.</p>
+<h3 id="deployment-and-hosting">Deployment and Hosting<a class="headerlink" href="#deployment-and-hosting" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Frontend and Backend Deployment</strong>: Vercel will host the Next.js application, which handles both frontend and backend API routes. The app will leverage Vercel’s edge functions for faster performance and secure, scalable deployment.</li>
+<li><strong>Database</strong>: Neon.tech will provide the PostgreSQL database in production, optimized for scalability and low latency. Prisma ORM will be used for seamless communication between the application backend and Neon.tech, simplifying database operations with TypeScript type safety.</li>
+</ul>
+<h3 id="key-technologies-and-tools">Key Technologies and Tools<a class="headerlink" href="#key-technologies-and-tools" title="Permanent link">&para;</a></h3>
+<h4 id="1-core-framework-and-libraries">1. <strong>Core Framework and Libraries</strong><a class="headerlink" href="#1-core-framework-and-libraries" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Next.js</strong>: The primary framework for frontend and backend development, leveraging both the <code>src</code> and <code>app</code> directories. Next.js will handle server-side rendering (SSR) and static site generation (SSG) to optimize load times and SEO.<ul>
+<li><strong>Next.js Plugins</strong>:</li>
+<li><strong>PWA</strong>: Enable Progressive Web App (PWA) capabilities for offline support and installation on mobile devices.</li>
+<li><strong>SEO</strong>: Leverage Next.js SEO plugins to optimize pages with meta tags, structured data, and social sharing configurations.</li>
+<li><strong>NextAuth.js</strong>: Manage authentication via OAuth for Google, Facebook, and GitHub, focusing on security and ease of use. No username/password authentication will be implemented to reduce risk and simplify maintenance.</li>
+<li><strong>i18next</strong>: Implement internationalization to support multi-language experiences, making the application accessible to a broader audience.</li>
+<li><strong>Next-Redux-Wrapper</strong>: For seamless integration of Redux with Next.js, ensuring that state is managed consistently across SSR/SSG pages.</li>
+<li><strong>TRPC (Type-safe Remote Procedure Calls)</strong>: Facilitate type-safe communication between the frontend and backend, allowing us to leverage TypeScript for shared types and safer API calls.</li>
+<li><strong>Prisma</strong>: ORM to manage database communication with Neon.tech. Prisma enables efficient database querying, type-safe operations, and migration management in TypeScript.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-state-management-and-data-fetching">2. <strong>State Management and Data Fetching</strong><a class="headerlink" href="#2-state-management-and-data-fetching" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Redux and Redux Toolkit</strong>: Core state management, utilizing the <code>redux-toolkit</code> for building and managing the application state. The toolkit offers a streamlined setup for reducers and middleware, with built-in dev tools and support for enhanced state immutability.</li>
+<li><strong>RTK Query + TRPC</strong>: Combined with Redux Toolkit and TRPC, RTK Query will enable caching and data synchronization with backend APIs, offering enhanced control over data fetching and mutation while minimizing boilerplate code.</li>
+<li><strong>Logging</strong>: Integrate logging middleware (e.g., Redux Logger or custom middleware) for debugging and error tracking during development. Error logging in production will be managed by a logging service such as Sentry.</li>
+</ul>
+<h4 id="3-authentication">3. <strong>Authentication</strong><a class="headerlink" href="#3-authentication" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>NextAuth.js</strong>: Third-party authentication integration with providers like Google, Facebook, and GitHub using OAuth, configured to prevent vulnerabilities like session hijacking and token tampering. Session management will be handled with <code>useSession</code>, providing secure, encrypted tokens for client-server communication.</li>
+</ul>
+<h4 id="4-payment-integration-interface">4. <strong>Payment Integration Interface</strong><a class="headerlink" href="#4-payment-integration-interface" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Abstract Payment Interface</strong>: Create an interface for payment integration with modular functions that allow switching payment providers with minimal changes. </li>
+<li><strong>Common Payment Functions</strong>:<ul>
+<li><code>initPayment</code>: Initialize the chosen third-party payment provider (e.g., Stripe) to set up the payment session.</li>
+<li><code>editPaymentData</code>: Update payment details in the third-party provider (e.g., modifying Stripe payment intent).</li>
+<li><code>getPaymentStatus</code>: Fetch the status of a transaction (e.g., Stripe payment intent status).</li>
+<li><code>cancelPayment</code>: Optionally, support canceling the payment if the user abandons the transaction.</li>
+</ul>
+</li>
+<li><strong>Stripe Implementation</strong>: Initially, implement this interface with Stripe as the payment provider, allowing easy swapping for future providers.</li>
+</ul>
+<h4 id="5-static-code-analysis-sca-and-code-quality">5. <strong>Static Code Analysis (SCA) and Code Quality</strong><a class="headerlink" href="#5-static-code-analysis-sca-and-code-quality" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Husky</strong>: Set up pre-commit hooks using Husky to enforce code quality checks, including:<ul>
+<li><strong>ESLint</strong>: Linting for consistent code styling and potential error prevention.</li>
+<li><strong>Prettier</strong>: Code formatting for a clean and consistent style.</li>
+<li><strong>TypeScript</strong>: All code will use TypeScript (no <code>.js</code> files), enforcing strict type-checking to catch potential errors and improve code quality.</li>
+</ul>
+</li>
+<li><strong>SonarLint</strong>: Code analysis to identify potential security vulnerabilities and code smells. SonarLint will integrate directly with the development environment for real-time feedback.</li>
+<li><strong>Dependabot</strong>: Regular dependency scanning and updates to ensure third-party packages are up-to-date, minimizing the risk of security vulnerabilities in dependencies.</li>
+</ul>
+<h4 id="6-uiux-development">6. <strong>UI/UX Development</strong><a class="headerlink" href="#6-uiux-development" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>TailwindCSS</strong>: A utility-first CSS framework for building responsive, modern UIs quickly.</li>
+<li><strong>Flowbite</strong>: Provides a library of UI components compatible with TailwindCSS, accelerating the development of consistent and visually appealing elements.</li>
+<li><strong>Storybook</strong>: Component-driven UI development tool, allowing us to document and test components in isolation. Storybook also improves UI consistency and speeds up testing and bug-fixing.</li>
+</ul>
+<h4 id="7-testing-and-performance">7. <strong>Testing and Performance</strong><a class="headerlink" href="#7-testing-and-performance" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Playwright</strong>: For end-to-end testing to verify that all user journeys and flows function as expected across different browsers.</li>
+<li><strong>Artillery</strong>: Load and performance testing to identify bottlenecks, helping ensure the app performs well under high-traffic conditions.</li>
+</ul>
+<h4 id="8-package-management-and-cicd">8. <strong>Package Management and CI/CD</strong><a class="headerlink" href="#8-package-management-and-cicd" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Yarn</strong>: Preferred package manager for faster and more consistent dependency management.</li>
+<li><strong>GitHub Actions (CI/CD Pipeline)</strong>: Automated CI/CD pipeline configured to:<ul>
+<li>Run tests and static code analysis on each pull request.</li>
+<li>Deploy automatically to Vercel’s preview environment for staging and testing.</li>
+<li>Perform vulnerability checks on dependencies.</li>
+</ul>
+</li>
+<li><strong>Dependabot</strong>: Integrated into the CI/CD pipeline to monitor dependencies for vulnerabilities and initiate pull requests for updates.</li>
+</ul>
+<h4 id="9-development-environment-configuration">9. <strong>Development Environment Configuration</strong><a class="headerlink" href="#9-development-environment-configuration" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Pre-configured VSCode and IntelliJ</strong>: Project-level settings to streamline developer environments, with recommended extensions and settings files for ESLint, Prettier, and TypeScript.</li>
+<li><strong>Environment Variables</strong>: Use Vercel’s environment management for sensitive data like API keys, Stripe keys, and database credentials, ensuring that secrets are not exposed in the codebase.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+  </body>
+</html>
