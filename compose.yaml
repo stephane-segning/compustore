@@ -22,7 +22,7 @@ services:
       ADMINER_PLUGINS: ${ADMINER_PLUGINS:-tables-filter tinymce}
 
   minio:
-    image: bitnami/minio:latest
+    image: soldevelo/minio:latest
     volumes:
       - minio:/bitnami/minio/data
     ports:
